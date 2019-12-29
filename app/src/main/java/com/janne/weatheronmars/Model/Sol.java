@@ -1,9 +1,10 @@
 package com.janne.weatheronmars.Model;
 
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Sol {
+public class Sol implements Serializable {
 
     private int number;
 

@@ -27,19 +27,11 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         setContentView(R.layout.activity_main);
 
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        SolFragment solFragment = new SolFragment();
-        fragmentTransaction.add(R.id.fragment_container, solFragment);
-
-        SolListFragment solListFragment = new SolListFragment();
-        fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
-        fragmentTransaction.commit();
 
         sols = new ArrayList<>();
-        //AsyncTaskRunner runner = new AsyncTaskRunner();
-        //runner.execute();
+        AsyncTaskRunner runner = new AsyncTaskRunner();
+        runner.execute();
 
 
     }
@@ -63,9 +55,19 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         }
 
         @Override
-        protected void onPostExecute(List<Sol> sols) {
-            if(sols.size() > 0) {
-                // TODO: remove progress spinner and show resut
+        protected void onPostExecute(List<Sol> sools) {
+            if(sools.size() > 0) {
+                sols = sools;
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                SolFragment solFragment = new SolFragment();
+                fragmentTransaction.add(R.id.fragment_container, solFragment);
+
+                SolListFragment solListFragment = SolListFragment.newInstance(sols);
+                fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
+                fragmentTransaction.commit();
+
             } else {
                 Log.i("ERRRRRORRRRRRR" , "noooow");
             }

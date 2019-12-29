@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.R;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,14 +29,32 @@ public class SolListFragment extends Fragment {
 
     private Callbacks callbacks;
 
+    private List<Sol> sols;
+
     public interface Callbacks {
         void onSolSelected(Sol sol);
+    }
+    public static SolListFragment newInstance(List<Sol> sols) {
+        Bundle args = new Bundle();
+        args.putSerializable("sols" , (Serializable) sols);
+
+        SolListFragment fragment = new SolListFragment();
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         callbacks  = (Callbacks) context;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sols = (List<Sol>) getArguments().getSerializable("sols");
+
+
     }
 
     @Override
@@ -48,16 +68,7 @@ public class SolListFragment extends Fragment {
     }
 
     public void updateUI(){
-        List<Sol> sols = new ArrayList<>();
-        Sol s = new Sol();
-        s.setNumber(999);
-        sols.add(s);
-        Sol s1 = new Sol();
-        s1.setNumber(147);
-        sols.add(s1);
-        Sol s2 = new Sol();
-        s2.setNumber(125);
-        sols.add(s2);
+
         if(adapter == null) {
             adapter = new SolAdapter(sols);
             recyclerView.setAdapter(adapter);
@@ -80,7 +91,6 @@ public class SolListFragment extends Fragment {
 
             titleTextView = (TextView) itemView.findViewById(R.id.sol_number);
             titleTextView.setText("test");
-            Log.i("Textview", titleTextView.getText() + "");
         }
 
         @Override
@@ -126,4 +136,5 @@ public class SolListFragment extends Fragment {
             this.sols = sols;
         }
     }
+
 }
