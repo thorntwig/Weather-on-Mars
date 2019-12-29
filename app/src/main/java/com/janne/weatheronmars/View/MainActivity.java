@@ -17,16 +17,15 @@ import com.janne.weatheronmars.Controller.WeatherFetcher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SolListFragment.Callbacks{
 
     private List<Sol> sols;
-    private TextView textView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
@@ -38,13 +37,18 @@ public class MainActivity extends AppCompatActivity {
         fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
         fragmentTransaction.commit();
 
-        textView = findViewById(R.id.textView);
         sols = new ArrayList<>();
-        AsyncTaskRunner runner = new AsyncTaskRunner();
-        runner.execute();
+        //AsyncTaskRunner runner = new AsyncTaskRunner();
+        //runner.execute();
 
 
     }
+
+    @Override
+    public void onSolSelected(Sol sol) {
+        Log.i("Callback", sol.getNumber() + " ");
+    }
+
     private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>>  {
 
         @Override
@@ -61,9 +65,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(List<Sol> sols) {
             if(sols.size() > 0) {
-                // TODO: remove progress spinner
-
-                textView.setText(sols.get(0).getAverageTemp() + " grader C");
+                // TODO: remove progress spinner and show resut
             } else {
                 Log.i("ERRRRRORRRRRRR" , "noooow");
             }
