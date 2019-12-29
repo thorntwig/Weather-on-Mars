@@ -1,7 +1,8 @@
-package com.janne.weatheronmars;
+package com.janne.weatheronmars.Controller;
 
-import android.os.AsyncTask;
 import android.util.Log;
+
+import com.janne.weatheronmars.Model.Sol;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -23,7 +24,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class WeatherFetcher {
 
-    static List<Sol> fetch() {
+    public static List<Sol> fetch() {
         HttpsURLConnection connection = null;
         BufferedReader reader = null;
         try {

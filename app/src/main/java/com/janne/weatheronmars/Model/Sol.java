@@ -1,4 +1,4 @@
-package com.janne.weatheronmars;
+package com.janne.weatheronmars.Model;
 
 
 import java.util.Date;
