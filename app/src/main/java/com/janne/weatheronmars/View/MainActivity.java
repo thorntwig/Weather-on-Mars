@@ -39,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
     @Override
     public void onSolSelected(Sol sol) {
         Log.i("Callback", sol.getNumber() + " ");
+        Fragment fragment = SolFragment.newInstance(sol);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
     private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>>  {
@@ -61,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SolFragment solFragment = new SolFragment();
+                SolFragment solFragment = SolFragment.newInstance(sols.get(0));
                 fragmentTransaction.add(R.id.fragment_container, solFragment);
 
                 SolListFragment solListFragment = SolListFragment.newInstance(sols);

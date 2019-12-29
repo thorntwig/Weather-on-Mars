@@ -36,7 +36,7 @@ public class SolListFragment extends Fragment {
     }
     public static SolListFragment newInstance(List<Sol> sols) {
         Bundle args = new Bundle();
-        args.putSerializable("sols" , (Serializable) sols);
+        args.putSerializable("solskey" , (Serializable) sols);
 
         SolListFragment fragment = new SolListFragment();
         fragment.setArguments(args);
@@ -52,7 +52,7 @@ public class SolListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        sols = (List<Sol>) getArguments().getSerializable("sols");
+        sols = (List<Sol>) getArguments().getSerializable("solskey");
 
 
     }

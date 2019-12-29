@@ -11,10 +11,11 @@
         android:layout_height="wrap_content"
         android:textSize="18sp"
         android:padding="8dp"
+        android:layout_margin="8dp"
         app:layout_constraintEnd_toStartOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:background="@color/colorAccent"
+        android:background="@color/colorPrimary"
         />
 
 
