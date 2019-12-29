@@ -16,26 +16,20 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
 
-public class WeatherFetcher extends AsyncTask<Void, Void, String> {
-    protected void onPreExecute() {
-        super.onPreExecute();
+public class WeatherFetcher {
 
-
-    }
-    @Override
-    protected String doInBackground(Void... voids) {
-
+    static List<Sol> fetch() {
         HttpsURLConnection connection = null;
         BufferedReader reader = null;
         try {
             URL url = new URL("https://api.nasa.gov/insight_weather/?api_key=pqYoj1vWsXGV8UwlhRbSCeReZEDytTeep3rkghkH&feedtype=json&ver=1.0");
             connection = (HttpsURLConnection) url.openConnection();
             connection.connect();
-
 
             InputStream stream = connection.getInputStream();
 
@@ -50,7 +44,7 @@ public class WeatherFetcher extends AsyncTask<Void, Void, String> {
 
             }
 
-            return buffer.toString();
+            return parse(buffer.toString());
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -58,17 +52,17 @@ public class WeatherFetcher extends AsyncTask<Void, Void, String> {
             e.printStackTrace();
         }
         return null;
+
     }
 
-    @Override
-    protected void onPostExecute(String result) {
-        super.onPostExecute(result);
+    private static ArrayList<Sol> parse(String json) {
+        ArrayList<Sol> sols = new ArrayList<>();
         try {
 
             // Get the sols
-            JSONObject obj = new JSONObject(result);
+            JSONObject obj = new JSONObject(json);
             JSONArray solsArray = obj.getJSONArray("sol_keys");
-            ArrayList<Sol> sols = new ArrayList<>();
+
             // Loop through all the sols
             for(int i  = 0; i < solsArray.length(); i++) {
                 Sol sol = new Sol();
@@ -107,8 +101,6 @@ public class WeatherFetcher extends AsyncTask<Void, Void, String> {
                 String season = solObj.getString("Season");
                 sol.setSeason(season);
 
-
-
                 sols.add(sol);
             }
 
@@ -123,10 +115,10 @@ public class WeatherFetcher extends AsyncTask<Void, Void, String> {
         } catch (ParseException e) {
             e.printStackTrace();
         }
-
+        return sols;
     }
 
-    private double farenheitToCelsius(double fareheit) {
+    private static double farenheitToCelsius(double fareheit) {
         return ((fareheit - 32)*5)/9;
     }
 }
