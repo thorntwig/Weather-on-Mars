@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -39,6 +40,13 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         AsyncTaskRunner runner = new AsyncTaskRunner();
         runner.execute();
 
+
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        //TODO: Continue to change layout on screen rotation
 
     }
 
