@@ -81,12 +81,11 @@ public class WeatherFetcher {
                 sol.setMaxTemp(farenheitToCelsius(at.getDouble("mx")));
 
                 // Wind speed
-                /*
                 JSONObject hws = solObj.getJSONObject("HWS");
                 sol.setAverageWind(hws.getDouble("av"));
                 sol.setMinWind(hws.getDouble("mn"));
                 sol.setMaxWind(hws.getDouble("mx"));
-*/
+
                 // Pressure
                 JSONObject pre = solObj.getJSONObject("PRE");
                 sol.setAveragePressure(pre.getDouble("av"));
@@ -107,10 +106,6 @@ public class WeatherFetcher {
                 sols.add(sol);
             }
 
-            // print the results
-            for(int i  = 0; i < sols.size(); i++) {
-                Log.d("Response: ", "> " + sols.get(i).getNumber() + " Av temp: " + sols.get(i).getAverageTemp());
-            }
 
             //this.progressDialog.dismiss();
         } catch (JSONException e) {
@@ -121,6 +116,7 @@ public class WeatherFetcher {
         Collections.sort(sols);
         return sols;
     }
+
 
     private static double farenheitToCelsius(double fareheit) {
         return ((fareheit - 32)*5)/9;

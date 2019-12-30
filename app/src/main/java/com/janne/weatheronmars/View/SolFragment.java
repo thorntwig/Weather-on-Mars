@@ -50,19 +50,19 @@ public class SolFragment extends Fragment {
         number.setText("Martian sol " + sol.getNumber());
 
         temp = (TextView) view.findViewById(R.id.temp);
-        temp.setText(sol.getAverageTemp() + " Grader C");
+        temp.setText((int) Math.round(sol.getAverageTemp()) + " °C");
 
         wind = (TextView) view.findViewById(R.id.wind);
-        wind.setText(sol.getAverageWind() + " m/s ?");
+        wind.setText((int) Math.round(sol.getAverageWind()) + " m/s");
 
         pressure = (TextView) view.findViewById(R.id.pressure);
-        pressure.setText(sol.getAveragePressure() + " hPa ?");
+        pressure.setText((int) Math.round(sol.getAveragePressure()) + " hPa");
 
         date = (TextView) view.findViewById(R.id.date);
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
         String startDate = formatter.format(sol.getStartTime());
-        date.setText("Date on earth: " + startDate);
+        date.setText(startDate);
 
         return view;
     }
