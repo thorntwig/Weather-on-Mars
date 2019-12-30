@@ -8,7 +8,7 @@
         android:id="@+id/date"
         android:layout_width="0dp"
         android:padding="16dp"
-        android:textSize="16sp"
+        android:textSize="30sp"
         android:layout_height="wrap_content"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
@@ -20,14 +20,17 @@
         android:id="@+id/temp"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:padding="16dp"
-        android:textSize="40sp"
+        android:paddingTop="30dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="30dp"
+        android:textSize="60sp"
         android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/date"
         android:gravity="center"
-        android:background="@layout/layout_rounded"/>
+        android:background="@layout/layout_rounded_outline"/>
 
     <LinearLayout
         android:id="@+id/sub_linear_layout"

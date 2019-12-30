@@ -1,6 +1,7 @@
 package com.janne.weatheronmars.View;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.view.menu.MenuView;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.ListFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,6 +33,7 @@ public class SolListFragment extends Fragment {
     private Callbacks callbacks;
 
     private List<Sol> sols;
+    private int adapterPosition;
 
     public interface Callbacks {
         void onSolSelected(Sol sol);
@@ -64,19 +67,9 @@ public class SolListFragment extends Fragment {
 
         recyclerView = (RecyclerView) view.findViewById(R.id.sol_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        updateUI();
+        adapter = new SolAdapter(sols);
+        recyclerView.setAdapter(adapter);
         return view;
-    }
-
-    public void updateUI(){
-
-        if(adapter == null) {
-            adapter = new SolAdapter(sols);
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter.setSols(sols);
-            adapter.notifyDataSetChanged();
-        }
     }
 
 
@@ -85,6 +78,8 @@ public class SolListFragment extends Fragment {
         private Sol sol;
 
         private TextView titleTextView;
+
+
 
         public SolHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_sol,parent,false));
@@ -96,9 +91,8 @@ public class SolListFragment extends Fragment {
         @Override
         public void onClick(View view) {
 
-            Log.i("clicked" ,sol.getNumber() + " ");
-            callbacks.onSolSelected(sol);
         }
+
         public void bind(Sol sol) {
             this.sol = sol;
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
@@ -109,6 +103,7 @@ public class SolListFragment extends Fragment {
     private class SolAdapter extends RecyclerView.Adapter<SolHolder> {
 
         private List<Sol> sols;
+
 
         public SolAdapter(List<Sol> sols){
             this.sols = sols;
@@ -122,10 +117,30 @@ public class SolListFragment extends Fragment {
         }
 
         @Override
-        public void onBindViewHolder(@NonNull SolHolder holder, int position) {
+        public void onBindViewHolder(@NonNull final SolHolder holder, final int position) {
             Sol sol = sols.get(position);
             holder.bind(sol);
+            holder.itemView.setSelected(false);
+            if(adapterPosition == holder.getAdapterPosition()) {
+                holder.itemView.setSelected(true);
+            }
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View view) {
+                    if (adapterPosition != position) {
+                        notifyItemChanged(adapterPosition);
+                        adapterPosition = position;
+                        view.setSelected(true);
+                        callbacks.onSolSelected(sols.get(position));
+                    }
+                }
+
+            });
+
         }
+
 
         @Override
         public int getItemCount() {

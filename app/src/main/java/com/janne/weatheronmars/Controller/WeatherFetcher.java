@@ -81,10 +81,15 @@ public class WeatherFetcher {
                 sol.setMaxTemp(farenheitToCelsius(at.getDouble("mx")));
 
                 // Wind speed
-                JSONObject hws = solObj.getJSONObject("HWS");
-                sol.setAverageWind(hws.getDouble("av"));
-                sol.setMinWind(hws.getDouble("mn"));
-                sol.setMaxWind(hws.getDouble("mx"));
+                try {
+                    JSONObject hws = solObj.getJSONObject("HWS");
+                    sol.setAverageWind(hws.getDouble("av"));
+                    sol.setMinWind(hws.getDouble("mn"));
+                    sol.setMaxWind(hws.getDouble("mx"));
+                } catch (Exception e) {
+
+                }
+
 
                 // Pressure
                 JSONObject pre = solObj.getJSONObject("PRE");

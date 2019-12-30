@@ -37,8 +37,6 @@ public class SolFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         sol = (Sol) getArguments().getSerializable("solkey");
-
-
     }
 
     @Nullable
@@ -50,7 +48,7 @@ public class SolFragment extends Fragment {
         number.setText("Martian sol " + sol.getNumber());
 
         temp = (TextView) view.findViewById(R.id.temp);
-        temp.setText((int) Math.round(sol.getAverageTemp()) + " °C");
+        temp.setText((int) Math.round(sol.getAverageTemp()) + "°C");
 
         wind = (TextView) view.findViewById(R.id.wind);
         wind.setText((int) Math.round(sol.getAverageWind()) + " m/s");
