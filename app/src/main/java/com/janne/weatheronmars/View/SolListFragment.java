@@ -19,6 +19,7 @@ import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.R;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -90,7 +91,6 @@ public class SolListFragment extends Fragment {
             itemView.setOnClickListener(this);
 
             titleTextView = (TextView) itemView.findViewById(R.id.sol_number);
-            titleTextView.setText("test");
         }
 
         @Override
@@ -101,7 +101,9 @@ public class SolListFragment extends Fragment {
         }
         public void bind(Sol sol) {
             this.sol = sol;
-            titleTextView.setText(sol.getNumber() + "");
+            SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+            String startDate = formatter.format(sol.getStartTime());
+            titleTextView.setText(startDate);
         }
     }
     private class SolAdapter extends RecyclerView.Adapter<SolHolder> {

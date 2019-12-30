@@ -17,6 +17,7 @@ import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -80,11 +81,12 @@ public class WeatherFetcher {
                 sol.setMaxTemp(farenheitToCelsius(at.getDouble("mx")));
 
                 // Wind speed
+                /*
                 JSONObject hws = solObj.getJSONObject("HWS");
                 sol.setAverageWind(hws.getDouble("av"));
                 sol.setMinWind(hws.getDouble("mn"));
                 sol.setMaxWind(hws.getDouble("mx"));
-
+*/
                 // Pressure
                 JSONObject pre = solObj.getJSONObject("PRE");
                 sol.setAveragePressure(pre.getDouble("av"));
@@ -116,6 +118,7 @@ public class WeatherFetcher {
         } catch (ParseException e) {
             e.printStackTrace();
         }
+        Collections.sort(sols);
         return sols;
     }
 

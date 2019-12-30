@@ -26,7 +26,13 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
 
+        setContentView(R.layout.activity_main);
 
 
         sols = new ArrayList<>();

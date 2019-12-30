@@ -12,12 +12,16 @@ import androidx.fragment.app.Fragment;
 
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.R;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 public class SolFragment extends Fragment {
 
 
 
-    private TextView number, temp, wind, pressure;
+    private TextView number, temp, wind, pressure, date;
     private Sol sol;
 
     public static SolFragment newInstance(Sol sol){
@@ -43,7 +47,7 @@ public class SolFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sol,container, false);
 
         number = (TextView) view.findViewById(R.id.number);
-        number.setText("Sol " + sol.getNumber());
+        number.setText("Martian sol " + sol.getNumber());
 
         temp = (TextView) view.findViewById(R.id.temp);
         temp.setText(sol.getAverageTemp() + " Grader C");
@@ -53,6 +57,12 @@ public class SolFragment extends Fragment {
 
         pressure = (TextView) view.findViewById(R.id.pressure);
         pressure.setText(sol.getAveragePressure() + " hPa ?");
+
+        date = (TextView) view.findViewById(R.id.date);
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        String startDate = formatter.format(sol.getStartTime());
+        date.setText("Date on earth: " + startDate);
 
         return view;
     }

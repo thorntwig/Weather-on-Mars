@@ -4,7 +4,7 @@ package com.janne.weatheronmars.Model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Sol implements Serializable {
+public class Sol implements Serializable,Comparable {
 
     private int number;
 
@@ -128,5 +128,11 @@ public class Sol implements Serializable {
 
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Sol other = (Sol) o;
+        return other.getNumber() - getNumber();
     }
 }
