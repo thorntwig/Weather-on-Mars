@@ -77,8 +77,12 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SolFragment solFragment = SolFragment.newInstance(sols.get(0));
-                fragmentTransaction.add(R.id.fragment_container, solFragment);
+                Fragment k = fragmentManager.findFragmentById(R.id.fragment_container);
+                if (k == null) {
+                    SolFragment solFragment = SolFragment.newInstance(sols.get(0));
+                    fragmentTransaction.add(R.id.fragment_container, solFragment);
+                }
+
 
                 Fragment f = fragmentManager.findFragmentById(R.id.fragment_list_container);
                 if(f == null) {
