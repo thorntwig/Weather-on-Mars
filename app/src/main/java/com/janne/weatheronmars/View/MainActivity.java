@@ -80,8 +80,13 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 SolFragment solFragment = SolFragment.newInstance(sols.get(0));
                 fragmentTransaction.add(R.id.fragment_container, solFragment);
 
-                SolListFragment solListFragment = SolListFragment.newInstance(sols);
-                fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
+                Fragment f = fragmentManager.findFragmentById(R.id.fragment_list_container);
+                if(f == null) {
+
+                    SolListFragment solListFragment = SolListFragment.newInstance(sols);
+                    fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
+                }
+
                 fragmentTransaction.commit();
 
             } else {

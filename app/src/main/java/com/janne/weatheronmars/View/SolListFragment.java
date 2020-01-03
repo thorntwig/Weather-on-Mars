@@ -65,7 +65,8 @@ public class SolListFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sol_list,container, false);
 
-        recyclerView = (RecyclerView) view.findViewById(R.id.sol_recycler_view);
+
+        recyclerView = view.findViewById(R.id.sol_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         adapter = new SolAdapter(sols);
         recyclerView.setAdapter(adapter);
