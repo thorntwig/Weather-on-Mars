@@ -11,7 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.janne.weatheronmars.Model.Unit;
 import com.janne.weatheronmars.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class DetailsActivity extends AppCompatActivity {
+
+    private List<Unit> units;
+    private String title;
+    private String sign;
+    private int position;
 
     private TextView textView;
     @Override
@@ -26,11 +34,14 @@ public class DetailsActivity extends AppCompatActivity {
 
         textView = (TextView) findViewById(R.id.title);
         Intent intent = getIntent();
-        String title = intent.getStringExtra("name");
-        Unit unit = (Unit) intent.getSerializableExtra("unit");
+
+        title = intent.getStringExtra("name");
+        sign = intent.getStringExtra("sign");
+        position = intent.getIntExtra("position", 0);
+        units = (ArrayList<Unit>) intent.getSerializableExtra("units");
 
         Log.i("TEST", "test");
-        textView.setText(title);
+        textView.setText(title + " AVG: " + units.get(position).getAvg() + sign);
 
     }
 }

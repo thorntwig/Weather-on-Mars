@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.janne.weatheronmars.Model.Sol;
+import com.janne.weatheronmars.Model.Unit;
 import com.janne.weatheronmars.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -29,7 +30,7 @@ public class SolFragment extends Fragment {
     private TextView number, wind, pressure, date;
     private Button temp;
     private Sol sol;
-    private int solNr;
+    private int position;
     List<Sol> sols;
 
     public static SolFragment newInstance(List<Sol> sols, int key){
@@ -46,9 +47,9 @@ public class SolFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        solNr = getArguments().getInt("solkey");
+        position = getArguments().getInt("solkey");
         sols = (List<Sol>) getArguments().getSerializable("solskey");
-        sol = (Sol) sols.get(solNr);
+        sol = (Sol) sols.get(position);
     }
 
 
@@ -68,9 +69,15 @@ public class SolFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                intent.putExtra("unit", sol.getTemp());
+                ArrayList<Unit> temps = new ArrayList<>();
+                for(Sol s : sols) {
+                    temps.add(s.getTemp());
+                }
+                intent.putExtra("units", temps);
+                intent.putExtra("position", position);
                 intent.putExtra("name", "Temperature");
                 intent.putExtra("sign", "°C");
+
                 startActivity(intent);
             }
         });
