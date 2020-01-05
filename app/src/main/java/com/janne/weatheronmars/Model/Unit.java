@@ -7,6 +7,12 @@ public class Unit {
     private double min;
     private double max;
 
+    public Unit(double avg, double min, double max) {
+        this.avg = avg;
+        this.min = min;
+        this.max = max;
+    }
+
     public double getAvg() {
         return avg;
     }

@@ -16,6 +16,9 @@ public class Sol implements Serializable,Comparable {
     private Date startTime;
     private Date endTime;
 
+    private Sol() {
+
+    }
     public int getNumber() {
         return number;
     }
@@ -72,9 +75,62 @@ public class Sol implements Serializable,Comparable {
         this.endTime = endTime;
     }
 
+
+
     @Override
     public int compareTo(Object o) {
         Sol other = (Sol) o;
         return other.getNumber() - getNumber();
+    }
+    public static class Builder {
+        private int number;
+        private Unit temp;
+        private Unit wind;
+        private Unit pressure;
+        private String season;
+        private Date startTime;
+        private Date endTime;
+
+        public Builder number(int number) {
+            this.number = number;
+            return this;
+        }
+        public Builder temp(Unit temp) {
+            this.temp = temp;
+            return this;
+        }
+        public Builder wind(Unit wind) {
+            this.wind = wind;
+            return this;
+        }
+        public Builder pressure(Unit pressure) {
+            this.pressure = pressure;
+            return this;
+        }
+        public Builder season(String season) {
+            this.season = season;
+            return this;
+        }
+        public Builder startTime(Date startTime) {
+            this.startTime = startTime;
+            return this;
+        }
+        public Builder endTime(Date endTime) {
+            this.endTime = endTime;
+            return this;
+        }
+        public Sol build() {
+            Sol sol = new Sol();
+            sol.number = this.number;
+            sol.temp = this.temp;
+            sol.wind = this.wind;
+            sol.pressure = this.pressure;
+            sol.season = this.season;
+            sol.startTime = this.startTime;
+            sol.endTime = this.endTime;
+
+            return sol;
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 package com.janne.weatheronmars.View;
 
 import android.content.Context;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -11,9 +11,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.view.menu.MenuView;
+
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.ListFragment;
+
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,7 +22,7 @@ import com.janne.weatheronmars.R;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+
 import java.util.List;
 
 public class SolListFragment extends Fragment {
@@ -62,33 +62,6 @@ public class SolListFragment extends Fragment {
     }
 
     @Override
-    public void onDestroy() {
-        super.onDestroy();
-        Log.i("Sol", "destroy");
-    }
-
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-
-        Log.i("Sol", "destroyView");
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
-        Log.i("Sol", "stopped");
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        Log.i("Sol", "start");
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sol_list,container, false);
 
@@ -106,8 +79,6 @@ public class SolListFragment extends Fragment {
         private Sol sol;
 
         private TextView titleTextView;
-
-
 
         public SolHolder(LayoutInflater inflater, ViewGroup parent) {
             super(inflater.inflate(R.layout.list_item_sol,parent,false));
@@ -131,7 +102,6 @@ public class SolListFragment extends Fragment {
     private class SolAdapter extends RecyclerView.Adapter<SolHolder> {
 
         private List<Sol> sols;
-
 
         public SolAdapter(List<Sol> sols){
             this.sols = sols;
@@ -169,7 +139,6 @@ public class SolListFragment extends Fragment {
 
         }
 
-
         @Override
         public int getItemCount() {
             if(sols == null) {
@@ -177,9 +146,7 @@ public class SolListFragment extends Fragment {
             }
             return sols.size();
         }
-        public void setSols(List<Sol> sols) {
-            this.sols = sols;
-        }
+
     }
 
 }
