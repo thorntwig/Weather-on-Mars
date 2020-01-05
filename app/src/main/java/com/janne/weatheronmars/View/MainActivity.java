@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -26,19 +27,31 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.i("Sol", "onCreate Activity");
 
 
+        try
+        {
+            this.getSupportActionBar().hide();
+        }
+        catch (NullPointerException e){}
+        setContentView(R.layout.activity_main);
 
-        sols = new ArrayList<>();
-        AsyncTaskRunner runner = new AsyncTaskRunner();
-        runner.execute();
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        Fragment solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
 
+        if (solFragment == null || solListFragment == null) {
+            sols = new ArrayList<>();
+            AsyncTaskRunner runner = new AsyncTaskRunner();
+            runner.execute();
 
+        }
     }
+
 
     @Override
     public void onSolSelected(Sol sol) {
-        Log.i("Callback", sol.getNumber() + " ");
         Fragment fragment = SolFragment.newInstance(sol);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
@@ -57,9 +70,11 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         }
 
         @Override
-        protected void onPostExecute(List<Sol> sools) {
-            if(sools.size() > 0) {
-                sols = sools;
+        protected void onPostExecute(List<Sol> result) {
+            if(result.size() > 0) {
+
+                sols = result;
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -68,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
                 SolListFragment solListFragment = SolListFragment.newInstance(sols);
                 fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
+
                 fragmentTransaction.commit();
 
             } else {
