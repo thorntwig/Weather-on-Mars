@@ -1,10 +1,12 @@
 package com.janne.weatheronmars.View;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,7 +24,8 @@ public class SolFragment extends Fragment {
 
 
 
-    private TextView number, temp, wind, pressure, date;
+    private TextView number, wind, pressure, date;
+    private Button temp;
     private Sol sol;
 
     public static SolFragment newInstance(Sol sol){
@@ -51,8 +54,19 @@ public class SolFragment extends Fragment {
         number = (TextView) view.findViewById(R.id.number);
         number.setText("Martian sol " + sol.getNumber());
 
-        temp = (TextView) view.findViewById(R.id.temp);
+        temp = (Button) view.findViewById(R.id.temp);
         temp.setText((int) Math.round(sol.getTemp().getAvg()) + "°C");
+
+        temp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                intent.putExtra("unit", sol.getTemp());
+                intent.putExtra("name", "Temperature");
+                intent.putExtra("sign", "°C");
+                startActivity(intent);
+            }
+        });
 
         wind = (TextView) view.findViewById(R.id.wind);
         wind.setText((int) Math.round(sol.getWind().getAvg()) + " m/s");
