@@ -1,6 +1,8 @@
 package com.janne.weatheronmars.Model;
 
-public class Unit {
+import java.io.Serializable;
+
+public class Unit implements Serializable {
 
 
     private double avg;
