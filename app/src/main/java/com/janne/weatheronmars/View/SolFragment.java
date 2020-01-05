@@ -1,6 +1,7 @@
 package com.janne.weatheronmars.View;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,8 +37,11 @@ public class SolFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         sol = (Sol) getArguments().getSerializable("solkey");
     }
+
+
 
     @Nullable
     @Override

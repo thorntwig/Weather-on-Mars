@@ -27,32 +27,31 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Log.i("Sol", "onCreate Activity");
+
+
         try
         {
             this.getSupportActionBar().hide();
         }
         catch (NullPointerException e){}
-
         setContentView(R.layout.activity_main);
 
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        Fragment solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        Fragment solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
 
-        sols = new ArrayList<>();
-        AsyncTaskRunner runner = new AsyncTaskRunner();
-        runner.execute();
+        if (solFragment == null || solListFragment == null) {
+            sols = new ArrayList<>();
+            AsyncTaskRunner runner = new AsyncTaskRunner();
+            runner.execute();
 
-
+        }
     }
 
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-        //TODO: Continue to change layout on screen rotation
-
-    }
 
     @Override
     public void onSolSelected(Sol sol) {
-        Log.i("Callback", sol.getNumber() + " ");
         Fragment fragment = SolFragment.newInstance(sol);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
@@ -71,25 +70,19 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         }
 
         @Override
-        protected void onPostExecute(List<Sol> sools) {
-            if(sools.size() > 0) {
-                sols = sools;
+        protected void onPostExecute(List<Sol> result) {
+            if(result.size() > 0) {
+
+                sols = result;
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                Fragment k = fragmentManager.findFragmentById(R.id.fragment_container);
-                if (k == null) {
-                    SolFragment solFragment = SolFragment.newInstance(sols.get(0));
-                    fragmentTransaction.add(R.id.fragment_container, solFragment);
-                }
+                SolFragment solFragment = SolFragment.newInstance(sols.get(0));
+                fragmentTransaction.add(R.id.fragment_container, solFragment);
 
-
-                Fragment f = fragmentManager.findFragmentById(R.id.fragment_list_container);
-                if(f == null) {
-
-                    SolListFragment solListFragment = SolListFragment.newInstance(sols);
-                    fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
-                }
+                SolListFragment solListFragment = SolListFragment.newInstance(sols);
+                fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
 
                 fragmentTransaction.commit();
 

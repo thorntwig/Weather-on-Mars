@@ -56,9 +56,36 @@ public class SolListFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setRetainInstance(true);
         sols = (List<Sol>) getArguments().getSerializable("solskey");
 
+    }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        Log.i("Sol", "destroy");
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+
+        Log.i("Sol", "destroyView");
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        Log.i("Sol", "stopped");
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        Log.i("Sol", "start");
     }
 
     @Override
