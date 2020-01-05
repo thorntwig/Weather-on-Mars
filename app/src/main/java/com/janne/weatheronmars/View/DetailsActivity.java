@@ -28,10 +28,9 @@ public class DetailsActivity extends AppCompatActivity {
         Intent intent = getIntent();
         String title = intent.getStringExtra("name");
         Unit unit = (Unit) intent.getSerializableExtra("unit");
-        
+
         Log.i("TEST", "test");
         textView.setText(title);
-
 
     }
 }

@@ -16,8 +16,10 @@ import androidx.fragment.app.Fragment;
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.R;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 public class SolFragment extends Fragment {
@@ -27,10 +29,13 @@ public class SolFragment extends Fragment {
     private TextView number, wind, pressure, date;
     private Button temp;
     private Sol sol;
+    private int solNr;
+    List<Sol> sols;
 
-    public static SolFragment newInstance(Sol sol){
+    public static SolFragment newInstance(List<Sol> sols, int key){
         Bundle args = new Bundle();
-        args.putSerializable("solkey", sol);
+        args.putSerializable("solskey", (ArrayList<Sol>) sols);
+        args.putSerializable("solkey", key);
 
         SolFragment fragment = new SolFragment();
         fragment.setArguments(args);
@@ -41,7 +46,9 @@ public class SolFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        sol = (Sol) getArguments().getSerializable("solkey");
+        solNr = getArguments().getInt("solkey");
+        sols = (List<Sol>) getArguments().getSerializable("solskey");
+        sol = (Sol) sols.get(solNr);
     }
 
 

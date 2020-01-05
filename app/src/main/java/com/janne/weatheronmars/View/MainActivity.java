@@ -20,7 +20,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SolListFragment.Callbacks{
 
-    private List<Sol> sols;
+    private ArrayList<Sol> sols;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,8 +47,8 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
 
     @Override
-    public void onSolSelected(Sol sol) {
-        Fragment fragment = SolFragment.newInstance(sol);
+    public void onSolSelected(List<Sol> sols, int key) {
+        Fragment fragment = SolFragment.newInstance(sols, key);
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
@@ -69,12 +69,12 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         protected void onPostExecute(List<Sol> result) {
             if(result.size() > 0) {
 
-                sols = result;
+                sols = (ArrayList<Sol>) result;
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SolFragment solFragment = SolFragment.newInstance(sols.get(0));
+                SolFragment solFragment = SolFragment.newInstance(sols,0);
                 fragmentTransaction.add(R.id.fragment_container, solFragment);
 
                 SolListFragment solListFragment = SolListFragment.newInstance(sols);

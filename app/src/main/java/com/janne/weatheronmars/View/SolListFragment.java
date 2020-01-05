@@ -36,7 +36,7 @@ public class SolListFragment extends Fragment {
     private int adapterPosition;
 
     public interface Callbacks {
-        void onSolSelected(Sol sol);
+        void onSolSelected(List<Sol> sols, int key);
     }
     public static SolListFragment newInstance(List<Sol> sols) {
         Bundle args = new Bundle();
@@ -131,7 +131,7 @@ public class SolListFragment extends Fragment {
                         notifyItemChanged(adapterPosition);
                         adapterPosition = position;
                         view.setSelected(true);
-                        callbacks.onSolSelected(sols.get(position));
+                        callbacks.onSolSelected(sols, position);
                     }
                 }
 
