@@ -52,13 +52,13 @@ public class SolFragment extends Fragment {
         number.setText("Martian sol " + sol.getNumber());
 
         temp = (TextView) view.findViewById(R.id.temp);
-        temp.setText((int) Math.round(sol.getAverageTemp()) + "°C");
+        temp.setText((int) Math.round(sol.getTemp().getAvg()) + "°C");
 
         wind = (TextView) view.findViewById(R.id.wind);
-        wind.setText((int) Math.round(sol.getAverageWind()) + " m/s");
+        wind.setText((int) Math.round(sol.getWind().getAvg()) + " m/s");
 
         pressure = (TextView) view.findViewById(R.id.pressure);
-        pressure.setText((int) Math.round(sol.getAveragePressure()) + " hPa");
+        pressure.setText((int) Math.round(sol.getPressure().getAvg()) + " hPa");
 
         date = (TextView) view.findViewById(R.id.date);
 

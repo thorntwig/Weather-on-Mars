@@ -3,6 +3,7 @@ package com.janne.weatheronmars.Controller;
 import android.util.Log;
 
 import com.janne.weatheronmars.Model.Sol;
+import com.janne.weatheronmars.Model.Unit;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -21,7 +22,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
-
 
 public class WeatherFetcher {
 
@@ -42,8 +42,6 @@ public class WeatherFetcher {
 
             while ((result = reader.readLine()) != null) {
                 buffer.append(result + "\n");
-                //Log.d("Response: ", "> " + result);   //here u ll get whole response...... :-)
-
             }
 
             return parse(buffer.toString());
@@ -76,26 +74,15 @@ public class WeatherFetcher {
 
                 // Temperatures
                 JSONObject at = solObj.getJSONObject("AT");
-                sol.setAverageTemp(farenheitToCelsius(at.getDouble("av")));
-                sol.setMinTemp(farenheitToCelsius(at.getDouble("mn")));
-                sol.setMaxTemp(farenheitToCelsius(at.getDouble("mx")));
-
-                // Wind speed
-                try {
-                    JSONObject hws = solObj.getJSONObject("HWS");
-                    sol.setAverageWind(hws.getDouble("av"));
-                    sol.setMinWind(hws.getDouble("mn"));
-                    sol.setMaxWind(hws.getDouble("mx"));
-                } catch (Exception e) {
-
-                }
-
+                sol.setTemp(parseTemp(at));
 
                 // Pressure
                 JSONObject pre = solObj.getJSONObject("PRE");
-                sol.setAveragePressure(pre.getDouble("av"));
-                sol.setMinPressure(pre.getDouble("mn"));
-                sol.setMaxPressure(pre.getDouble("mx"));
+                sol.setPressure(parseUnit(pre));
+
+                // Wind speed
+                JSONObject hws = solObj.getJSONObject("HWS");
+                sol.setWind(parseUnit(hws));
 
                 // Dates
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss"); // your format
@@ -122,8 +109,29 @@ public class WeatherFetcher {
         return sols;
     }
 
+    private static Unit parseUnit(JSONObject o){
+        Unit u = null;
+        try {
+            u = new Unit();
+            u.setAvg(o.getDouble("av"));
+            u.setMin(o.getDouble("mn"));
+            u.setMax(o.getDouble("mx"));
 
-    private static double farenheitToCelsius(double fareheit) {
-        return ((fareheit - 32)*5)/9;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return u;
+    }
+
+    private static Unit parseTemp(JSONObject o) {
+        Unit temp = parseUnit(o);
+        temp.setAvg(fahrenheitToCelsius(temp.getAvg()));
+        temp.setMin(fahrenheitToCelsius(temp.getMin()));
+        temp.setMax(fahrenheitToCelsius(temp.getMax()));
+        return temp;
+    }
+
+    private static double fahrenheitToCelsius(double fahrenheit) {
+        return ((fahrenheit - 32)*5)/9;
     }
 }
