@@ -22,8 +22,6 @@ import java.util.List;
 
 public class SolFragment extends Fragment {
 
-
-
     private TextView number, date;
     private Button temp, wind, pressure;
     private Sol sol;
@@ -60,65 +58,73 @@ public class SolFragment extends Fragment {
         number.setText("Martian sol " + sol.getNumber());
 
         temp = (Button) view.findViewById(R.id.temp);
-        temp.setText((int) Math.round(sol.getTemp().getAvg()) + "°C");
+        if(sol.getTemp() != null) {
+            temp.setText((int) Math.round(sol.getTemp().getAvg()) + "°C");
+            temp.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    ArrayList<Unit> temps = new ArrayList<>();
+                    for(Sol s : sols) {
+                        temps.add(s.getTemp());
+                    }
+                    intent.putExtra("sols", (ArrayList<Sol>) sols);
+                    intent.putExtra("units", temps);
+                    intent.putExtra("position", position);
+                    intent.putExtra("name", "Temperature");
+                    intent.putExtra("sign", "°C");
 
-        temp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                ArrayList<Unit> temps = new ArrayList<>();
-                for(Sol s : sols) {
-                    temps.add(s.getTemp());
+                    startActivity(intent);
                 }
-                intent.putExtra("sols", (ArrayList<Sol>) sols);
-                intent.putExtra("units", temps);
-                intent.putExtra("position", position);
-                intent.putExtra("name", "Temperature");
-                intent.putExtra("sign", "°C");
+            });
+        }
 
-                startActivity(intent);
-            }
-        });
 
         wind = (Button) view.findViewById(R.id.wind);
-        wind.setText((int) Math.round(sol.getWind().getAvg()) + " m/s");
-        wind.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                ArrayList<Unit> winds = new ArrayList<>();
-                for(Sol s : sols) {
-                    winds.add(s.getWind());
-                }
-                intent.putExtra("sols", (ArrayList<Sol>) sols);
-                intent.putExtra("units", winds);
-                intent.putExtra("position", position);
-                intent.putExtra("name", "Wind");
-                intent.putExtra("sign", "m/s");
+        if(sol.getWind() != null) {
+            wind.setText((int) Math.round(sol.getWind().getAvg()) + " m/s");
+            wind.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    ArrayList<Unit> winds = new ArrayList<>();
+                    for(Sol s : sols) {
+                        winds.add(s.getWind());
+                    }
+                    intent.putExtra("sols", (ArrayList<Sol>) sols);
+                    intent.putExtra("units", winds);
+                    intent.putExtra("position", position);
+                    intent.putExtra("name", "Wind");
+                    intent.putExtra("sign", "m/s");
 
-                startActivity(intent);
-            }
-        });
+                    startActivity(intent);
+                }
+            });
+        }
+
 
         pressure = (Button) view.findViewById(R.id.pressure);
-        pressure.setText((int) Math.round(sol.getPressure().getAvg()) + " hPa");
-        pressure.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                ArrayList<Unit> pressures = new ArrayList<>();
-                for(Sol s : sols) {
-                    pressures.add(s.getPressure());
-                }
-                intent.putExtra("sols", (ArrayList<Sol>) sols);
-                intent.putExtra("units", pressures);
-                intent.putExtra("position", position);
-                intent.putExtra("name", "Pressure");
-                intent.putExtra("sign", "hPa");
+        if(sol.getPressure() != null) {
+            pressure.setText((int) Math.round(sol.getPressure().getAvg()) + " hPa");
+            pressure.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    ArrayList<Unit> pressures = new ArrayList<>();
+                    for(Sol s : sols) {
+                        pressures.add(s.getPressure());
+                    }
+                    intent.putExtra("sols", (ArrayList<Sol>) sols);
+                    intent.putExtra("units", pressures);
+                    intent.putExtra("position", position);
+                    intent.putExtra("name", "Pressure");
+                    intent.putExtra("sign", "hPa");
 
-                startActivity(intent);
-            }
-        });
+                    startActivity(intent);
+                }
+            });
+        }
+
         date = (TextView) view.findViewById(R.id.date);
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
