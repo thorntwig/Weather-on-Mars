@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.Model.Unit;
 import com.janne.weatheronmars.R;
 
@@ -59,7 +57,7 @@ public class DetailsActivity extends AppCompatActivity {
         Line avgLine = new Line(avg);
         Line minLine = new Line(min);
         Line maxLine = new Line(max);
-        
+
         minLine.setColor(Color.parseColor("#D6FFFE"));
         avgLine.setColor(Color.parseColor("#5EC2F1"));
         maxLine.setColor(Color.parseColor("#0C6FFF"));
