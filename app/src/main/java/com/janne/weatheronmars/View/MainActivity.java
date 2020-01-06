@@ -18,7 +18,7 @@ import com.janne.weatheronmars.Controller.WeatherFetcher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SolListFragment.Callbacks{
+public class MainActivity extends AppCompatActivity implements SolListFragment.Callbacks {
 
     private ArrayList<Sol> sols;
 
@@ -26,11 +26,10 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try
-        {
+        try {
             this.getSupportActionBar().hide();
+        } catch (NullPointerException e) {
         }
-        catch (NullPointerException e){}
         setContentView(R.layout.activity_main);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
@@ -52,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
-    private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>>  {
+    private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>> {
 
         @Override
         protected void onPreExecute() {
@@ -67,14 +66,14 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
         @Override
         protected void onPostExecute(List<Sol> result) {
-            if(result.size() > 0) {
+            if (result.size() > 0) {
 
                 sols = (ArrayList<Sol>) result;
 
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SolFragment solFragment = SolFragment.newInstance(sols,0);
+                SolFragment solFragment = SolFragment.newInstance(sols, 0);
                 fragmentTransaction.add(R.id.fragment_container, solFragment);
 
                 SolListFragment solListFragment = SolListFragment.newInstance(sols);
@@ -83,7 +82,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 fragmentTransaction.commit();
 
             } else {
-                Log.i("ERRRRRORRRRRRR" , "noooow");
+                Log.i("ERRRRRORRRRRRR", "noooow");
             }
         }
     }

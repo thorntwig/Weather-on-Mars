@@ -35,16 +35,16 @@ public class DetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        try
-        {
+        try {
             this.getSupportActionBar().hide();
-        } catch (NullPointerException e) {}
+        } catch (NullPointerException e) {
+        }
 
         Intent intent = getIntent();
 
         units = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
 
-        titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView = findViewById(R.id.title);
         titleTextView.setText(units.get(0).getTitle() + getString(R.string._in_) + units.get(0).getSign());
 
         LineChartView lineChartView = findViewById(R.id.chart);
@@ -64,7 +64,7 @@ public class DetailsActivity extends AppCompatActivity {
 
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM");
-        for(int i = 0; i < units.size(); i++) {
+        for (int i = 0; i < units.size(); i++) {
 
             String date = formatter.format(units.get(i).getDate());
             axisValues.add(i, new AxisValue(i).setLabel(date));

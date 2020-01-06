@@ -69,7 +69,7 @@ public class WeatherFetcher {
             JSONArray solsArray = obj.getJSONArray("sol_keys");
 
 
-            for(int i  = 0; i < solsArray.length(); i++) {
+            for (int i = 0; i < solsArray.length(); i++) {
 
                 int number = Integer.valueOf(solsArray.getString(i));
                 JSONObject jsonObj = obj.getJSONObject(String.valueOf(number));
@@ -118,7 +118,7 @@ public class WeatherFetcher {
         return sols;
     }
 
-    private static Unit parseUnit(JSONObject sol, String key){
+    private static Unit parseUnit(JSONObject sol, String key) {
         try {
             JSONObject o = sol.getJSONObject(key);
             double avg = o.getDouble("av");
@@ -141,6 +141,6 @@ public class WeatherFetcher {
     }
 
     private static double fahrenheitToCelsius(double fahrenheit) {
-        return ((fahrenheit - 32)*5)/9;
+        return ((fahrenheit - 32) * 5) / 9;
     }
 }
