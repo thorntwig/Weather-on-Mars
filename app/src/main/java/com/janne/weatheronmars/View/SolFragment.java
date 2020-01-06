@@ -32,6 +32,11 @@ public class SolFragment extends Fragment {
     private int position;
     private List<Sol> sols;
 
+    private SolFragment() {
+
+    }
+
+
     public static SolFragment newInstance(List<Sol> sols, int key){
         Bundle args = new Bundle();
         args.putSerializable(SOLS_LIST_KEY, (ArrayList<Sol>) sols);
@@ -41,6 +46,7 @@ public class SolFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,8 +122,6 @@ public class SolFragment extends Fragment {
         number.setText(getString(R.string.mars_sol) + sol.getNumber());
 
         return view;
-
-
     }
 
     private void startDetailsActivity(ArrayList<Unit> units) {

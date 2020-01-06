@@ -91,7 +91,5 @@ public class DetailsActivity extends AppCompatActivity {
         Axis yAxis = new Axis();
         data.setAxisYLeft(yAxis);
 
-
-
     }
 }

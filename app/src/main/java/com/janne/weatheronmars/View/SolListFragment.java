@@ -40,6 +40,9 @@ public class SolListFragment extends Fragment {
     public interface Callbacks {
         void onSolSelected(List<Sol> sols, int key);
     }
+    private SolListFragment() {
+
+    }
     public static SolListFragment newInstance(List<Sol> sols) {
         Bundle args = new Bundle();
         args.putSerializable(SOLS_LIST_KEY , (Serializable) sols);
