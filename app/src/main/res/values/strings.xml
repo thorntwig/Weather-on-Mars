@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Weather on Mars</string>
+    <string name="temp">Temperature</string>
+    <string name="pressure">Pressure</string>
+    <string name="wind">Wind speed</string>
+    <string name="temp_sign">°C</string>
+    <string name="pressure_sign">Pa</string>
+    <string name="wind_sign"> m/s</string>
+    <string name="mars_sol">Martian sol </string>
+
 </resources>

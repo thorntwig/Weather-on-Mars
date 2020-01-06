@@ -22,6 +22,9 @@ import java.util.List;
 
 public class SolFragment extends Fragment {
 
+    private static final String SOLS_LIST_KEY = "sols_list_key";
+    private static final String SOL_KEY = "sol_key";
+
     private TextView number, date;
     private Button temp, wind, pressure;
     private Sol sol;
@@ -30,8 +33,8 @@ public class SolFragment extends Fragment {
 
     public static SolFragment newInstance(List<Sol> sols, int key){
         Bundle args = new Bundle();
-        args.putSerializable("solskey", (ArrayList<Sol>) sols);
-        args.putSerializable("solkey", key);
+        args.putSerializable(SOLS_LIST_KEY, (ArrayList<Sol>) sols);
+        args.putSerializable(SOL_KEY, key);
 
         SolFragment fragment = new SolFragment();
         fragment.setArguments(args);
@@ -42,8 +45,8 @@ public class SolFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        position = getArguments().getInt("solkey");
-        sols = (List<Sol>) getArguments().getSerializable("solskey");
+        position = getArguments().getInt(SOL_KEY);
+        sols = (List<Sol>) getArguments().getSerializable(SOLS_LIST_KEY);
         sol = (Sol) sols.get(position);
     }
 
@@ -59,7 +62,7 @@ public class SolFragment extends Fragment {
 
         temp = (Button) view.findViewById(R.id.temp);
         if(sol.getTemp() != null) {
-            temp.setText((int) Math.round(sol.getTemp().getAvg()) + "°C");
+            temp.setText((int) Math.round(sol.getTemp().getAvg()) + getString(R.string.temp_sign));
             temp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -82,7 +85,7 @@ public class SolFragment extends Fragment {
 
         wind = (Button) view.findViewById(R.id.wind);
         if(sol.getWind() != null) {
-            wind.setText((int) Math.round(sol.getWind().getAvg()) + " m/s");
+            wind.setText((int) Math.round(sol.getWind().getAvg()) + getString(R.string.wind_sign));
             wind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -105,7 +108,7 @@ public class SolFragment extends Fragment {
 
         pressure = (Button) view.findViewById(R.id.pressure);
         if(sol.getPressure() != null) {
-            pressure.setText((int) Math.round(sol.getPressure().getAvg()) + " hPa");
+            pressure.setText((int) Math.round(sol.getPressure().getAvg()) + getString(R.string.pressure_sign));
             pressure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -118,7 +121,7 @@ public class SolFragment extends Fragment {
                     intent.putExtra("units", pressures);
                     intent.putExtra("position", position);
                     intent.putExtra("name", "Pressure");
-                    intent.putExtra("sign", "hPa");
+                    intent.putExtra("sign", "Pa");
 
                     startActivity(intent);
                 }

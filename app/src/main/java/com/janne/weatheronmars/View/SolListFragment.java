@@ -27,6 +27,8 @@ import java.util.List;
 
 public class SolListFragment extends Fragment {
 
+    private static final String SOLS_LIST_KEY = "sols_list_key";
+
     private RecyclerView recyclerView;
     private SolAdapter adapter;
 
@@ -40,7 +42,7 @@ public class SolListFragment extends Fragment {
     }
     public static SolListFragment newInstance(List<Sol> sols) {
         Bundle args = new Bundle();
-        args.putSerializable("solskey" , (Serializable) sols);
+        args.putSerializable(SOLS_LIST_KEY , (Serializable) sols);
 
         SolListFragment fragment = new SolListFragment();
         fragment.setArguments(args);
@@ -57,7 +59,7 @@ public class SolListFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        sols = (List<Sol>) getArguments().getSerializable("solskey");
+        sols = (List<Sol>) getArguments().getSerializable(SOLS_LIST_KEY);
 
     }
 
