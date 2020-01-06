@@ -18,17 +18,14 @@ import com.janne.weatheronmars.Model.Unit;
 import com.janne.weatheronmars.R;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 public class SolFragment extends Fragment {
 
 
 
-    private TextView number, wind, pressure, date;
-    private Button temp;
+    private TextView number, date;
+    private Button temp, wind, pressure;
     private Sol sol;
     private int position;
     List<Sol> sols;
@@ -83,12 +80,45 @@ public class SolFragment extends Fragment {
             }
         });
 
-        wind = (TextView) view.findViewById(R.id.wind);
+        wind = (Button) view.findViewById(R.id.wind);
         wind.setText((int) Math.round(sol.getWind().getAvg()) + " m/s");
+        wind.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                ArrayList<Unit> winds = new ArrayList<>();
+                for(Sol s : sols) {
+                    winds.add(s.getWind());
+                }
+                intent.putExtra("sols", (ArrayList<Sol>) sols);
+                intent.putExtra("units", winds);
+                intent.putExtra("position", position);
+                intent.putExtra("name", "Wind");
+                intent.putExtra("sign", "m/s");
 
-        pressure = (TextView) view.findViewById(R.id.pressure);
+                startActivity(intent);
+            }
+        });
+
+        pressure = (Button) view.findViewById(R.id.pressure);
         pressure.setText((int) Math.round(sol.getPressure().getAvg()) + " hPa");
+        pressure.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                ArrayList<Unit> pressures = new ArrayList<>();
+                for(Sol s : sols) {
+                    pressures.add(s.getPressure());
+                }
+                intent.putExtra("sols", (ArrayList<Sol>) sols);
+                intent.putExtra("units", pressures);
+                intent.putExtra("position", position);
+                intent.putExtra("name", "Pressure");
+                intent.putExtra("sign", "hPa");
 
+                startActivity(intent);
+            }
+        });
         date = (TextView) view.findViewById(R.id.date);
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");

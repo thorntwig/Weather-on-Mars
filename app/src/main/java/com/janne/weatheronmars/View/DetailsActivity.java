@@ -32,6 +32,8 @@ public class DetailsActivity extends AppCompatActivity {
     private String sign;
     private int position;
 
+    private TextView titleTextView;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -52,6 +54,9 @@ public class DetailsActivity extends AppCompatActivity {
         units = (List<Unit>) intent.getSerializableExtra("units");
         sols = (List<Sol>) intent.getSerializableExtra("sols");
 
+        titleTextView = (TextView) findViewById(R.id.title);
+        titleTextView.setText(title + " in " + sign);
+
         LineChartView lineChartView = findViewById(R.id.chart);
 
 
@@ -68,14 +73,13 @@ public class DetailsActivity extends AppCompatActivity {
         maxLine.setColor(Color.parseColor("#0C6FFF"));
 
 
-
-
-
+        
         for(int i = 0; i < sols.size(); i++) {
             axisValues.add(i, new AxisValue(i).setLabel(String.valueOf(sols.get(i).getNumber())));
-            avg.add(new PointValue(i, (float) units.get(i).getAvg()));
-            min.add(new PointValue(i, (float) units.get(i).getMin()));
-            max.add(new PointValue(i, (float) units.get(i).getMax()));
+
+            avg.add(new PointValue(i, ((int) Math.round(units.get(i).getAvg()))));
+            min.add(new PointValue(i, ((int) Math.round(units.get(i).getMin()))));
+            max.add(new PointValue(i, ((int) Math.round(units.get(i).getMax()))));
         }
 
         List<Line> lines = new ArrayList();

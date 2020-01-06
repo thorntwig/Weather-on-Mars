@@ -39,7 +39,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temp" >
-        <TextView
+        <Button
             android:id="@+id/wind"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -48,8 +48,12 @@
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
             android:gravity="center"
+            android:background="@android:color/transparent"
+            android:textStyle="normal"
+            android:textAllCaps="false"
+
             />
-        <TextView
+        <Button
             android:id="@+id/pressure"
             android:layout_width="0dp"
             android:layout_weight="1"
@@ -57,7 +61,10 @@
             android:textSize="30sp"
             android:layout_height="wrap_content"
             android:textColor="#FFFFFF"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:background="@android:color/transparent"
+            android:textStyle="normal"
+            android:textAllCaps="false"/>
 
     </LinearLayout>
     <TextView
