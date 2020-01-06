@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.res.Configuration;
 import android.os.AsyncTask;
@@ -21,6 +22,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements SolListFragment.Callbacks{
 
     private ArrayList<Sol> sols;
+    private SwipeRefreshLayout swipeContainer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +34,21 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         }
         catch (NullPointerException e){}
         setContentView(R.layout.activity_main);
+
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
+
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                AsyncTaskRunner runner = new AsyncTaskRunner();
+                runner.execute();
+            }
+        });
+
+        swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
@@ -71,7 +88,13 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
                 sols = (ArrayList<Sol>) result;
 
+
                 FragmentManager fragmentManager = getSupportFragmentManager();
+                Fragment solFragmentCheck = fragmentManager.findFragmentById(R.id.fragment_container);
+                Fragment solListFragmentCheck = fragmentManager.findFragmentById(R.id.fragment_list_container);
+
+                if (solFragmentCheck == null || solListFragmentCheck == null) {
+
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
                 SolFragment solFragment = SolFragment.newInstance(sols,0);
@@ -81,6 +104,20 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
 
                 fragmentTransaction.commit();
+
+                } else {
+
+                    SolFragment solFragment = SolFragment.newInstance(sols,0);
+                    fragmentManager.beginTransaction().remove(solFragmentCheck).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, solFragment).commit();
+
+                    SolListFragment solListFragment = SolListFragment.newInstance(sols);
+                    fragmentManager.beginTransaction().remove(solListFragmentCheck).commit();
+                    fragmentManager.beginTransaction().replace(R.id.fragment_list_container, solListFragment).commit();
+
+                }
+
+                swipeContainer.setRefreshing(false);
 
             } else {
                 Log.i("ERRRRRORRRRRRR" , "noooow");
