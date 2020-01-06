@@ -29,7 +29,7 @@ public class SolFragment extends Fragment {
     private Button temp, wind, pressure;
     private Sol sol;
     private int position;
-    List<Sol> sols;
+    private List<Sol> sols;
 
     public static SolFragment newInstance(List<Sol> sols, int key){
         Bundle args = new Bundle();
@@ -47,7 +47,7 @@ public class SolFragment extends Fragment {
         setRetainInstance(true);
         position = getArguments().getInt(SOL_KEY);
         sols = (List<Sol>) getArguments().getSerializable(SOLS_LIST_KEY);
-        sol = (Sol) sols.get(position);
+        sol = sols.get(position);
     }
 
 
@@ -58,7 +58,7 @@ public class SolFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_sol,container, false);
 
         number = (TextView) view.findViewById(R.id.number);
-        number.setText("Martian sol " + sol.getNumber());
+        number.setText(getString(R.string.mars_sol) + sol.getNumber());
 
         temp = (Button) view.findViewById(R.id.temp);
         if(sol.getTemp() != null) {
@@ -66,16 +66,14 @@ public class SolFragment extends Fragment {
             temp.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
                     ArrayList<Unit> temps = new ArrayList<>();
+                    ArrayList<String> days = new ArrayList<>();
                     for(Sol s : sols) {
-                        temps.add(s.getTemp());
+                        if(s.getTemp() != null) {
+                            temps.add(s.getTemp());
+                        }
                     }
-                    intent.putExtra("sols", (ArrayList<Sol>) sols);
-                    intent.putExtra("units", temps);
-                    intent.putExtra("position", position);
-
-                    startActivity(intent);
+                    startDetailsActivity(temps);
                 }
             });
         }
@@ -87,16 +85,11 @@ public class SolFragment extends Fragment {
             wind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
                     ArrayList<Unit> winds = new ArrayList<>();
                     for(Sol s : sols) {
                         winds.add(s.getWind());
                     }
-                    intent.putExtra("sols", (ArrayList<Sol>) sols);
-                    intent.putExtra("units", winds);
-                    intent.putExtra("position", position);
-
-                    startActivity(intent);
+                    startDetailsActivity(winds);
                 }
             });
         }
@@ -108,16 +101,12 @@ public class SolFragment extends Fragment {
             pressure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
                     ArrayList<Unit> pressures = new ArrayList<>();
                     for(Sol s : sols) {
+
                         pressures.add(s.getPressure());
                     }
-                    intent.putExtra("sols", (ArrayList<Sol>) sols);
-                    intent.putExtra("units", pressures);
-                    intent.putExtra("position", position);
-
-                    startActivity(intent);
+                    startDetailsActivity(pressures);
                 }
             });
         }
@@ -129,5 +118,14 @@ public class SolFragment extends Fragment {
         date.setText(startDate);
 
         return view;
+    }
+    private void startDetailsActivity(ArrayList<Unit> units) {
+        Intent intent = new Intent(getActivity(), DetailsActivity.class);
+
+        intent.putExtra("sols", (ArrayList<Sol>) sols);
+        intent.putExtra("units", units);
+        intent.putExtra("position", position);
+
+        startActivity(intent);
     }
 }

@@ -14,6 +14,7 @@ import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.Model.Unit;
 import com.janne.weatheronmars.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -70,14 +71,16 @@ public class DetailsActivity extends AppCompatActivity {
         maxLine.setColor(Color.parseColor("#0C6FFF"));
 
 
-        
-        for(int i = 0; i < sols.size(); i++) {
-            axisValues.add(i, new AxisValue(i).setLabel(String.valueOf(sols.get(i).getNumber())));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM");
+        for(int i = 0; i < units.size(); i++) {
 
+            String date = formatter.format(units.get(i).getDate());
+            axisValues.add(i, new AxisValue(i).setLabel(date));
             avg.add(new PointValue(i, ((int) Math.round(units.get(i).getAvg()))));
             min.add(new PointValue(i, ((int) Math.round(units.get(i).getMin()))));
             max.add(new PointValue(i, ((int) Math.round(units.get(i).getMax()))));
         }
+
 
         List<Line> lines = new ArrayList();
         lines.add(maxLine);
@@ -92,7 +95,6 @@ public class DetailsActivity extends AppCompatActivity {
         Axis axis = new Axis();
         axis.setValues(axisValues);
         data.setAxisXBottom(axis);
-        axis.setName(getString(R.string.mars_sol));
 
         Axis yAxis = new Axis();
         data.setAxisYLeft(yAxis);

@@ -1,6 +1,7 @@
 package com.janne.weatheronmars.Model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 public class Unit implements Serializable {
 
@@ -10,6 +11,7 @@ public class Unit implements Serializable {
     private double max;
     private String title;
     private String sign;
+    private Date date;
 
     public Unit(double avg, double min, double max) {
         this.avg = avg;
@@ -55,5 +57,12 @@ public class Unit implements Serializable {
 
     public void setSign(String sign) {
         this.sign = sign;
+    }
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
     }
 }
