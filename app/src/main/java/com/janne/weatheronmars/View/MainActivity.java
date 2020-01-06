@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         @Override
         protected List<Sol> doInBackground(Void... voids) {
 
-            return WeatherFetcher.fetch();
+            return WeatherFetcher.fetch(getApplicationContext());
         }
 
         @Override

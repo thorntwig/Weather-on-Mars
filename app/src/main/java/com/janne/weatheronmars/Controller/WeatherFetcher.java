@@ -1,9 +1,12 @@
 package com.janne.weatheronmars.Controller;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.util.Log;
 
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.Model.Unit;
+import com.janne.weatheronmars.R;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -26,7 +29,9 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class WeatherFetcher {
 
-    public static List<Sol> fetch() {
+
+    public static List<Sol> fetch(Context context) {
+
         HttpsURLConnection connection = null;
         BufferedReader reader = null;
         try {
@@ -45,7 +50,7 @@ public class WeatherFetcher {
                 buffer.append(result + "\n");
             }
 
-            return parse(buffer.toString());
+            return parse(buffer.toString(), context);
 
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -56,7 +61,7 @@ public class WeatherFetcher {
 
     }
 
-    private static ArrayList<Sol> parse(String json) {
+    private static ArrayList<Sol> parse(String json, Context context) {
         ArrayList<Sol> sols = new ArrayList<>();
         try {
 
@@ -70,10 +75,16 @@ public class WeatherFetcher {
                 JSONObject jsonObj = obj.getJSONObject(String.valueOf(number));
 
                 Unit temp = parseTemp(jsonObj, "AT");
+                temp.setTitle(context.getString(R.string.temp));
+                temp.setSign(context.getString(R.string.temp_sign));
 
                 Unit pressure = parseUnit(jsonObj, "PRE");
+                pressure.setTitle(context.getString(R.string.pressure));
+                pressure.setSign(context.getString(R.string.pressure_sign));
 
                 Unit wind = parseUnit(jsonObj, "HWS");
+                wind.setTitle(context.getString(R.string.wind));
+                wind.setSign(context.getString(R.string.wind_sign));
 
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
                 Date startTime = format.parse(jsonObj.getString("First_UTC"));
@@ -93,6 +104,7 @@ public class WeatherFetcher {
 
                 sols.add(sol);
             }
+
 
         } catch (JSONException e) {
             Log.e("JSONException", "Error: " + e.toString());

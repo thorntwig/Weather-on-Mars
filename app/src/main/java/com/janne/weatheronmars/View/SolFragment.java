@@ -74,8 +74,6 @@ public class SolFragment extends Fragment {
                     intent.putExtra("sols", (ArrayList<Sol>) sols);
                     intent.putExtra("units", temps);
                     intent.putExtra("position", position);
-                    intent.putExtra("name", "Temperature");
-                    intent.putExtra("sign", "°C");
 
                     startActivity(intent);
                 }
@@ -97,8 +95,6 @@ public class SolFragment extends Fragment {
                     intent.putExtra("sols", (ArrayList<Sol>) sols);
                     intent.putExtra("units", winds);
                     intent.putExtra("position", position);
-                    intent.putExtra("name", "Wind");
-                    intent.putExtra("sign", "m/s");
 
                     startActivity(intent);
                 }
@@ -120,8 +116,6 @@ public class SolFragment extends Fragment {
                     intent.putExtra("sols", (ArrayList<Sol>) sols);
                     intent.putExtra("units", pressures);
                     intent.putExtra("position", position);
-                    intent.putExtra("name", "Pressure");
-                    intent.putExtra("sign", "Pa");
 
                     startActivity(intent);
                 }

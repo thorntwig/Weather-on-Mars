@@ -8,6 +8,8 @@ public class Unit implements Serializable {
     private double avg;
     private double min;
     private double max;
+    private String title;
+    private String sign;
 
     public Unit(double avg, double min, double max) {
         this.avg = avg;
@@ -37,5 +39,21 @@ public class Unit implements Serializable {
 
     public void setMax(double max) {
         this.max = max;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
     }
 }

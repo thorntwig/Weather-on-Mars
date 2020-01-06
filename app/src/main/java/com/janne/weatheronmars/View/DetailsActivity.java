@@ -48,17 +48,14 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        title = intent.getStringExtra("name");
-        sign = intent.getStringExtra("sign");
         position = intent.getIntExtra("position", 0);
         units = (List<Unit>) intent.getSerializableExtra("units");
         sols = (List<Sol>) intent.getSerializableExtra("sols");
 
         titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText(title + " in " + sign);
+        titleTextView.setText(units.get(position).getTitle() + getString(R.string._in_) + units.get(position).getSign());
 
         LineChartView lineChartView = findViewById(R.id.chart);
-
 
         List<AxisValue> axisValues = new ArrayList<>();
         List<PointValue> avg = new ArrayList<>();
@@ -95,7 +92,7 @@ public class DetailsActivity extends AppCompatActivity {
         Axis axis = new Axis();
         axis.setValues(axisValues);
         data.setAxisXBottom(axis);
-        axis.setName("Martian sol");
+        axis.setName(getString(R.string.mars_sol));
 
         Axis yAxis = new Axis();
         data.setAxisYLeft(yAxis);
