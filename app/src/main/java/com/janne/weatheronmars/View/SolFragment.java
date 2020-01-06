@@ -24,6 +24,7 @@ public class SolFragment extends Fragment {
 
     private static final String SOLS_LIST_KEY = "sols_list_key";
     private static final String SOL_KEY = "sol_key";
+    private static final String UNITS_KEY = "units_key";
 
     private TextView number, date;
     private Button temp, wind, pressure;
@@ -57,8 +58,10 @@ public class SolFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sol,container, false);
 
-        number = (TextView) view.findViewById(R.id.number);
-        number.setText(getString(R.string.mars_sol) + sol.getNumber());
+        date = (TextView) view.findViewById(R.id.date);
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
+        String startDate = formatter.format(sol.getStartTime());
+        date.setText(startDate);
 
         temp = (Button) view.findViewById(R.id.temp);
         if(sol.getTemp() != null) {
@@ -67,7 +70,6 @@ public class SolFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
                     ArrayList<Unit> temps = new ArrayList<>();
-                    ArrayList<String> days = new ArrayList<>();
                     for(Sol s : sols) {
                         if(s.getTemp() != null) {
                             temps.add(s.getTemp());
@@ -103,7 +105,6 @@ public class SolFragment extends Fragment {
                 public void onClick(View view) {
                     ArrayList<Unit> pressures = new ArrayList<>();
                     for(Sol s : sols) {
-
                         pressures.add(s.getPressure());
                     }
                     startDetailsActivity(pressures);
@@ -111,21 +112,17 @@ public class SolFragment extends Fragment {
             });
         }
 
-        date = (TextView) view.findViewById(R.id.date);
-
-        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-        String startDate = formatter.format(sol.getStartTime());
-        date.setText(startDate);
+        number = (TextView) view.findViewById(R.id.number);
+        number.setText(getString(R.string.mars_sol) + sol.getNumber());
 
         return view;
+
+
     }
+
     private void startDetailsActivity(ArrayList<Unit> units) {
         Intent intent = new Intent(getActivity(), DetailsActivity.class);
-
-        intent.putExtra("sols", (ArrayList<Sol>) sols);
-        intent.putExtra("units", units);
-        intent.putExtra("position", position);
-
+        intent.putExtra(UNITS_KEY, units);
         startActivity(intent);
     }
 }

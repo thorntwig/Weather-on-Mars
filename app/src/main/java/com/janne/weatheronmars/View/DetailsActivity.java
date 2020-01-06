@@ -27,14 +27,10 @@ import lecho.lib.hellocharts.view.LineChartView;
 
 public class DetailsActivity extends AppCompatActivity {
 
+    private static final String UNITS_KEY = "units_key";
+
     private List<Unit> units;
-    private List<Sol> sols;
-    private String title;
-    private String sign;
-    private int position;
-
     private TextView titleTextView;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,15 +42,12 @@ public class DetailsActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         } catch (NullPointerException e) {}
 
-
         Intent intent = getIntent();
 
-        position = intent.getIntExtra("position", 0);
-        units = (List<Unit>) intent.getSerializableExtra("units");
-        sols = (List<Sol>) intent.getSerializableExtra("sols");
+        units = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
 
         titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText(units.get(position).getTitle() + getString(R.string._in_) + units.get(position).getSign());
+        titleTextView.setText(units.get(0).getTitle() + getString(R.string._in_) + units.get(0).getSign());
 
         LineChartView lineChartView = findViewById(R.id.chart);
 
@@ -66,6 +59,7 @@ public class DetailsActivity extends AppCompatActivity {
         Line avgLine = new Line(avg);
         Line minLine = new Line(min);
         Line maxLine = new Line(max);
+        
         minLine.setColor(Color.parseColor("#D6FFFE"));
         avgLine.setColor(Color.parseColor("#5EC2F1"));
         maxLine.setColor(Color.parseColor("#0C6FFF"));
