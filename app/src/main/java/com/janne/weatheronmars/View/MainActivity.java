@@ -19,7 +19,7 @@ import com.janne.weatheronmars.Controller.WeatherFetcher;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements SolListFragment.Callbacks{
+public class MainActivity extends AppCompatActivity implements SolListFragment.Callbacks {
 
     private ArrayList<Sol> sols;
     private SwipeRefreshLayout swipeContainer;
@@ -28,11 +28,10 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        try
-        {
+        try {
             this.getSupportActionBar().hide();
+        } catch (NullPointerException e) {
         }
-        catch (NullPointerException e){}
         setContentView(R.layout.activity_main);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
@@ -69,7 +68,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
     }
 
-    private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>>  {
+    private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>> {
 
         @Override
         protected void onPreExecute() {
@@ -79,12 +78,12 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         @Override
         protected List<Sol> doInBackground(Void... voids) {
 
-            return WeatherFetcher.fetch();
+            return WeatherFetcher.fetch(getApplicationContext());
         }
 
         @Override
         protected void onPostExecute(List<Sol> result) {
-            if(result.size() > 0) {
+            if (result.size() > 0) {
 
                 sols = (ArrayList<Sol>) result;
 
@@ -97,7 +96,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SolFragment solFragment = SolFragment.newInstance(sols,0);
+                SolFragment solFragment = SolFragment.newInstance(sols, 0);
                 fragmentTransaction.add(R.id.fragment_container, solFragment);
 
                 SolListFragment solListFragment = SolListFragment.newInstance(sols);
@@ -120,7 +119,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 swipeContainer.setRefreshing(false);
 
             } else {
-                Log.i("ERRRRRORRRRRRR" , "noooow");
+                Log.i("ERRRRRORRRRRRR", "noooow");
             }
         }
     }

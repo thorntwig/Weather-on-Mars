@@ -6,14 +6,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
 
-import androidx.annotation.ColorInt;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.Model.Unit;
 import com.janne.weatheronmars.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,39 +25,29 @@ import lecho.lib.hellocharts.view.LineChartView;
 
 public class DetailsActivity extends AppCompatActivity {
 
+    private static final String UNITS_KEY = "units_key";
+
     private List<Unit> units;
-    private List<Sol> sols;
-    private String title;
-    private String sign;
-    private int position;
-
     private TextView titleTextView;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
 
-        try
-        {
+        try {
             this.getSupportActionBar().hide();
-        } catch (NullPointerException e) {}
-
+        } catch (NullPointerException e) {
+        }
 
         Intent intent = getIntent();
 
-        title = intent.getStringExtra("name");
-        sign = intent.getStringExtra("sign");
-        position = intent.getIntExtra("position", 0);
-        units = (List<Unit>) intent.getSerializableExtra("units");
-        sols = (List<Sol>) intent.getSerializableExtra("sols");
+        units = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
 
-        titleTextView = (TextView) findViewById(R.id.title);
-        titleTextView.setText(title + " in " + sign);
+        titleTextView = findViewById(R.id.title);
+        titleTextView.setText(units.get(0).getTitle() + getString(R.string._in_) + units.get(0).getSign());
 
         LineChartView lineChartView = findViewById(R.id.chart);
-
 
         List<AxisValue> axisValues = new ArrayList<>();
         List<PointValue> avg = new ArrayList<>();
@@ -68,19 +57,22 @@ public class DetailsActivity extends AppCompatActivity {
         Line avgLine = new Line(avg);
         Line minLine = new Line(min);
         Line maxLine = new Line(max);
+
         minLine.setColor(Color.parseColor("#D6FFFE"));
         avgLine.setColor(Color.parseColor("#5EC2F1"));
         maxLine.setColor(Color.parseColor("#0C6FFF"));
 
 
-        
-        for(int i = 0; i < sols.size(); i++) {
-            axisValues.add(i, new AxisValue(i).setLabel(String.valueOf(sols.get(i).getNumber())));
+        SimpleDateFormat formatter = new SimpleDateFormat("dd MMM");
+        for (int i = 0; i < units.size(); i++) {
 
+            String date = formatter.format(units.get(i).getDate());
+            axisValues.add(i, new AxisValue(i).setLabel(date));
             avg.add(new PointValue(i, ((int) Math.round(units.get(i).getAvg()))));
             min.add(new PointValue(i, ((int) Math.round(units.get(i).getMin()))));
             max.add(new PointValue(i, ((int) Math.round(units.get(i).getMax()))));
         }
+
 
         List<Line> lines = new ArrayList();
         lines.add(maxLine);
@@ -95,12 +87,9 @@ public class DetailsActivity extends AppCompatActivity {
         Axis axis = new Axis();
         axis.setValues(axisValues);
         data.setAxisXBottom(axis);
-        axis.setName("Martian sol");
 
         Axis yAxis = new Axis();
         data.setAxisYLeft(yAxis);
-
-
 
     }
 }

@@ -4,7 +4,7 @@ package com.janne.weatheronmars.Model;
 import java.io.Serializable;
 import java.util.Date;
 
-public class Sol implements Serializable,Comparable {
+public class Sol implements Serializable, Comparable {
 
     private int number;
 
@@ -19,6 +19,7 @@ public class Sol implements Serializable,Comparable {
     private Sol() {
 
     }
+
     public int getNumber() {
         return number;
     }
@@ -76,12 +77,12 @@ public class Sol implements Serializable,Comparable {
     }
 
 
-
     @Override
     public int compareTo(Object o) {
         Sol other = (Sol) o;
         return other.getNumber() - getNumber();
     }
+
     public static class Builder {
         private int number;
         private Unit temp;
@@ -95,30 +96,37 @@ public class Sol implements Serializable,Comparable {
             this.number = number;
             return this;
         }
+
         public Builder temp(Unit temp) {
             this.temp = temp;
             return this;
         }
+
         public Builder wind(Unit wind) {
             this.wind = wind;
             return this;
         }
+
         public Builder pressure(Unit pressure) {
             this.pressure = pressure;
             return this;
         }
+
         public Builder season(String season) {
             this.season = season;
             return this;
         }
+
         public Builder startTime(Date startTime) {
             this.startTime = startTime;
             return this;
         }
+
         public Builder endTime(Date endTime) {
             this.endTime = endTime;
             return this;
         }
+
         public Sol build() {
             Sol sol = new Sol();
             sol.number = this.number;

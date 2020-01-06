@@ -40,9 +40,14 @@ public class SolListFragment extends Fragment {
     public interface Callbacks {
         void onSolSelected(List<Sol> sols, int key);
     }
+
+    private SolListFragment() {
+
+    }
+
     public static SolListFragment newInstance(List<Sol> sols) {
         Bundle args = new Bundle();
-        args.putSerializable(SOLS_LIST_KEY , (Serializable) sols);
+        args.putSerializable(SOLS_LIST_KEY, (Serializable) sols);
 
         SolListFragment fragment = new SolListFragment();
         fragment.setArguments(args);
@@ -52,7 +57,7 @@ public class SolListFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        callbacks  = (Callbacks) context;
+        callbacks = (Callbacks) context;
     }
 
     @Override
@@ -65,7 +70,7 @@ public class SolListFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_sol_list,container, false);
+        View view = inflater.inflate(R.layout.fragment_sol_list, container, false);
 
 
         recyclerView = view.findViewById(R.id.sol_recycler_view);
@@ -83,10 +88,10 @@ public class SolListFragment extends Fragment {
         private TextView titleTextView;
 
         public SolHolder(LayoutInflater inflater, ViewGroup parent) {
-            super(inflater.inflate(R.layout.list_item_sol,parent,false));
+            super(inflater.inflate(R.layout.list_item_sol, parent, false));
             itemView.setOnClickListener(this);
 
-            titleTextView = (TextView) itemView.findViewById(R.id.sol_number);
+            titleTextView = itemView.findViewById(R.id.sol_number);
         }
 
         @Override
@@ -101,11 +106,12 @@ public class SolListFragment extends Fragment {
             titleTextView.setText(startDate);
         }
     }
+
     private class SolAdapter extends RecyclerView.Adapter<SolHolder> {
 
         private List<Sol> sols;
 
-        public SolAdapter(List<Sol> sols){
+        public SolAdapter(List<Sol> sols) {
             this.sols = sols;
         }
 
@@ -121,7 +127,7 @@ public class SolListFragment extends Fragment {
             Sol sol = sols.get(position);
             holder.bind(sol);
             holder.itemView.setSelected(false);
-            if(adapterPosition == holder.getAdapterPosition()) {
+            if (adapterPosition == holder.getAdapterPosition()) {
                 holder.itemView.setSelected(true);
             }
 
@@ -143,7 +149,7 @@ public class SolListFragment extends Fragment {
 
         @Override
         public int getItemCount() {
-            if(sols == null) {
+            if (sols == null) {
                 return 0;
             }
             return sols.size();
