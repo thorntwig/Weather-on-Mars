@@ -73,6 +73,7 @@ public class SolFragment extends Fragment {
                 for(Sol s : sols) {
                     temps.add(s.getTemp());
                 }
+                intent.putExtra("sols", (ArrayList<Sol>) sols);
                 intent.putExtra("units", temps);
                 intent.putExtra("position", position);
                 intent.putExtra("name", "Temperature");
