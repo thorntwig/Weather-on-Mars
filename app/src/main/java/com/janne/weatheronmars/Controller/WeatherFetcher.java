@@ -3,6 +3,7 @@ package com.janne.weatheronmars.Controller;
 import android.content.Context;
 import android.content.res.Resources;
 import android.util.Log;
+import android.net.*;
 
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.Model.Unit;
@@ -29,13 +30,23 @@ import javax.net.ssl.HttpsURLConnection;
 
 public class WeatherFetcher {
 
-
     public static List<Sol> fetch(Context context) {
 
         HttpsURLConnection connection = null;
         BufferedReader reader = null;
         try {
-            URL url = new URL("https://api.nasa.gov/insight_weather/?api_key=pqYoj1vWsXGV8UwlhRbSCeReZEDytTeep3rkghkH&feedtype=json&ver=1.0");
+            Uri.Builder builder = new Uri.Builder();
+            builder.scheme("https")
+                    .authority("api.nasa.gov")
+                    .appendPath("insight_weather")
+                    .appendPath("")
+                    .appendQueryParameter("api_key", "pqYoj1vWsXGV8UwlhRbSCeReZEDytTeep3rkghkH")
+                    .appendQueryParameter("feedtype", "json")
+                    .appendQueryParameter("ver", "1.0");
+
+            String builtUrl = builder.build().toString();
+            URL url = new URL(builtUrl);
+//            URL url = new URL("https://api.nasa.gov/insight_weather/?api_key=pqYoj1vWsXGV8UwlhRbSCeReZEDytTeep3rkghkH&feedtype=json&ver=1.0");
             connection = (HttpsURLConnection) url.openConnection();
             connection.connect();
 

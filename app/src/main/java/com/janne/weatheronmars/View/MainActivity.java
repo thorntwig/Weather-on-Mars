@@ -102,7 +102,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 SolListFragment solListFragment = SolListFragment.newInstance(sols);
                 fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
 
-                fragmentTransaction.commit();
+                    fragmentTransaction.commit();
 
                 } else {
 
