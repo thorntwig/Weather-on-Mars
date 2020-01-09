@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class Unit implements Serializable {
 
@@ -101,4 +102,11 @@ public class Unit implements Serializable {
         }
         return true;
     }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(avg, min, max, title, sign, date);
+    }
+
+
 }

@@ -3,6 +3,7 @@ package com.janne.weatheronmars.Model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 public class Sol implements Serializable, Comparable {
 
@@ -110,12 +111,13 @@ public class Sol implements Serializable, Comparable {
         if(!this.endTime.equals(s.getEndTime())) {
             return false;
         }
-
-
         return true;
-
     }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, temp, wind, pressure, season, startTime, endTime);
+    }
 
     @Override
     public int compareTo(Object o) {
