@@ -84,23 +84,22 @@ public class WeatherRepository {
                 JSONObject jsonObj = obj.getJSONObject(String.valueOf(number));
 
                 SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
-                Date startTime = format.parse(jsonObj.getString("First_UTC"));
-                Date ensTime = format.parse(jsonObj.getString("Last_UTC"));
+                Date date = format.parse(jsonObj.getString("First_UTC"));
 
                 Unit temp = parseTemp(jsonObj, "AT");
                 temp.setTitle(context.getString(R.string.temp));
                 temp.setSign(context.getString(R.string.temp_sign));
-                temp.setDate(startTime);
+                temp.setDate(date);
 
                 Unit pressure = parseUnit(jsonObj, "PRE");
                 pressure.setTitle(context.getString(R.string.pressure));
                 pressure.setSign(context.getString(R.string.pressure_sign));
-                pressure.setDate(startTime);
+                pressure.setDate(date);
 
                 Unit wind = parseUnit(jsonObj, "HWS");
                 wind.setTitle(context.getString(R.string.wind));
                 wind.setSign(context.getString(R.string.wind_sign));
-                wind.setDate(startTime);
+                wind.setDate(date);
 
                 String season = jsonObj.getString("Season");
 
@@ -110,8 +109,7 @@ public class WeatherRepository {
                         .wind(wind)
                         .pressure(pressure)
                         .season(season)
-                        .startTime(startTime)
-                        .endTime(ensTime)
+                        .date(date)
                         .build();
 
                 sols.add(sol);

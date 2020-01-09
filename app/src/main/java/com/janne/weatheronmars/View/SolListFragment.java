@@ -102,8 +102,8 @@ public class SolListFragment extends Fragment {
         public void bind(Sol sol) {
             this.sol = sol;
             SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-            String startDate = formatter.format(sol.getStartTime());
-            titleTextView.setText(startDate);
+            String date = formatter.format(sol.getDate());
+            titleTextView.setText(date);
         }
     }
 
