@@ -24,6 +24,11 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
     private ArrayList<Sol> sols;
     private SwipeRefreshLayout swipeContainer;
 
+    private FragmentManager fragmentManager;
+    private Fragment solFragment;
+    private Fragment solListFragment;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         setContentView(R.layout.activity_main);
 
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        
+
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -49,12 +54,9 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
-
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        Fragment solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
-        Fragment solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
+        fragmentManager = getSupportFragmentManager();
+        solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+        solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
 
         if (solFragment == null || solListFragment == null) {
             sols = new ArrayList<>();
@@ -67,8 +69,8 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
     @Override
     public void onSolSelected(List<Sol> sols, int key) {
-        Fragment fragment = SolFragment.newInstance(sols, key);
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+        solFragment = SolFragment.newInstance(sols, key);
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, solFragment).commit();
     }
 
     private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>> {
@@ -86,44 +88,38 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
         @Override
         protected void onPostExecute(List<Sol> result) {
-            if (result.size() > 0) {
-
-                sols = (ArrayList<Sol>) result;
 
 
-                FragmentManager fragmentManager = getSupportFragmentManager();
-                Fragment solFragmentCheck = fragmentManager.findFragmentById(R.id.fragment_container);
-                Fragment solListFragmentCheck = fragmentManager.findFragmentById(R.id.fragment_list_container);
+            sols = (ArrayList<Sol>) result;
+            
+            solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+            solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
 
-                if (solFragmentCheck == null || solListFragmentCheck == null) {
+            if (solFragment == null || solListFragment == null) {
 
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-                SolFragment solFragment = SolFragment.newInstance(sols, 0);
+                solFragment = SolFragment.newInstance(sols, 0);
                 fragmentTransaction.add(R.id.fragment_container, solFragment);
 
-                SolListFragment solListFragment = SolListFragment.newInstance(sols);
+                solListFragment = SolListFragment.newInstance(sols);
                 fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
 
-                    fragmentTransaction.commit();
-
-                } else {
-
-                    SolFragment solFragment = SolFragment.newInstance(sols,0);
-                    fragmentManager.beginTransaction().remove(solFragmentCheck).commit();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_container, solFragment).commit();
-
-                    SolListFragment solListFragment = SolListFragment.newInstance(sols);
-                    fragmentManager.beginTransaction().remove(solListFragmentCheck).commit();
-                    fragmentManager.beginTransaction().replace(R.id.fragment_list_container, solListFragment).commit();
-
-                }
-
-                swipeContainer.setRefreshing(false);
+                fragmentTransaction.commit();
 
             } else {
-                Log.i("ERRRRRORRRRRRR", "noooow");
+
+                fragmentManager.beginTransaction().remove(solFragment).commit();
+                solFragment = SolFragment.newInstance(sols,0);
+                fragmentManager.beginTransaction().replace(R.id.fragment_container, solFragment).commit();
+
+                fragmentManager.beginTransaction().remove(solListFragment).commit();
+                solListFragment = SolListFragment.newInstance(sols);
+                fragmentManager.beginTransaction().replace(R.id.fragment_list_container, solListFragment).commit();
+
             }
+            swipeContainer.setRefreshing(false);
+
         }
     }
 }
