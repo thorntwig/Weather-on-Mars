@@ -107,6 +107,4 @@ public class Unit implements Serializable {
     public int hashCode() {
         return Objects.hash(avg, min, max, title, sign, date);
     }
-
-
 }

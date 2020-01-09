@@ -1,5 +1,6 @@
 package com.janne.weatheronmars.View;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -9,6 +10,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -90,41 +92,40 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         @Override
         protected void onPostExecute(List<Sol> result) {
 
-            if(sols.equals(result)){
-                Toast.makeText(getApplicationContext(), "The lists are equal", Toast.LENGTH_LONG).show();
-            } else {
-                Toast.makeText(getApplicationContext(), "The lists are not equal", Toast.LENGTH_LONG).show();
-            }
+            if(sols != null && sols.equals(result)){
 
-
-            sols = (ArrayList<Sol>) result;
-
-
-            solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
-            solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
-
-            if (solFragment == null || solListFragment == null) {
-
-                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
-                solFragment = SolFragment.newInstance(sols, 0);
-                fragmentTransaction.add(R.id.fragment_container, solFragment);
-
-                solListFragment = SolListFragment.newInstance(sols);
-                fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
-
-                fragmentTransaction.commit();
+                Toast.makeText(getApplicationContext(), getString(R.string.up_to_date), Toast.LENGTH_LONG).show();
 
             } else {
 
-                fragmentManager.beginTransaction().remove(solFragment).commit();
-                solFragment = SolFragment.newInstance(sols,0);
-                fragmentManager.beginTransaction().replace(R.id.fragment_container, solFragment).commit();
+                sols = (ArrayList<Sol>) result;
 
-                fragmentManager.beginTransaction().remove(solListFragment).commit();
-                solListFragment = SolListFragment.newInstance(sols);
-                fragmentManager.beginTransaction().replace(R.id.fragment_list_container, solListFragment).commit();
+                solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
+                solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
 
+                if (solFragment == null || solListFragment == null) {
+
+                    FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+                    solFragment = SolFragment.newInstance(sols, 0);
+                    fragmentTransaction.add(R.id.fragment_container, solFragment);
+
+                    solListFragment = SolListFragment.newInstance(sols);
+                    fragmentTransaction.add(R.id.fragment_list_container, solListFragment);
+
+                    fragmentTransaction.commit();
+
+                } else {
+
+                    fragmentManager.beginTransaction().remove(solFragment).commit();
+                    solFragment = SolFragment.newInstance(sols,0);
+                    fragmentManager.beginTransaction().replace(R.id.fragment_container, solFragment).commit();
+
+                    fragmentManager.beginTransaction().remove(solListFragment).commit();
+                    solListFragment = SolListFragment.newInstance(sols);
+                    fragmentManager.beginTransaction().replace(R.id.fragment_list_container, solListFragment).commit();
+
+                }
             }
             swipeContainer.setRefreshing(false);
         }
