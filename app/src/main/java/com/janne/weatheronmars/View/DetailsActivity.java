@@ -18,6 +18,7 @@ import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
+import lecho.lib.hellocharts.model.ChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
@@ -41,7 +42,6 @@ public class DetailsActivity extends AppCompatActivity {
         }
 
         Intent intent = getIntent();
-
         List<Unit> unsortedUnits = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
         units = new ArrayList<>();
         for (int i = unsortedUnits.size() -1; i >= 0; i--) {
@@ -63,20 +63,40 @@ public class DetailsActivity extends AppCompatActivity {
         Line minLine = new Line(min);
         Line maxLine = new Line(max);
 
-        minLine.setColor(Color.parseColor("#D6FFFE"));
-        avgLine.setColor(Color.parseColor("#5EC2F1"));
-        maxLine.setColor(Color.parseColor("#0C6FFF"));
+        minLine.setColor(Color.parseColor("#0E79A1"));
+        avgLine.setColor(Color.parseColor("#0E79A1"));
+        maxLine.setColor(Color.parseColor("#0E79A1"));
 
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM");
         for (int i = 0; i < units.size(); i++) {
-
             String date = formatter.format(units.get(i).getDate());
             axisValues.add(i, new AxisValue(i).setLabel(date));
-            avg.add(new PointValue(i, ((int) Math.round(units.get(i).getAvg()))));
-            min.add(new PointValue(i, ((int) Math.round(units.get(i).getMin()))));
-            max.add(new PointValue(i, ((int) Math.round(units.get(i).getMax()))));
+
+            int minVal = (int) Math.round(units.get(i).getMin());
+            int avgVal = (int) Math.round(units.get(i).getAvg());
+            int maxVal = (int) Math.round(units.get(i).getMax());
+
+            PointValue minPoint = new PointValue(i, minVal);
+            PointValue avgPoint = new PointValue(i, avgVal);
+            PointValue maxPoint = new PointValue(i, maxVal);
+
+            minPoint.setLabel("");
+            avgPoint.setLabel("");
+            maxPoint.setLabel("");
+
+            min.add(minPoint);
+            avg.add(avgPoint);
+            max.add(maxPoint);
         }
+
+        minLine.setHasLabels(true);
+        avgLine.setHasLabels(true);
+        maxLine.setHasLabels(true);
+
+        min.get(0).setLabel("Min");
+        avg.get(0).setLabel("Avg");
+        max.get(0).setLabel("Max");
 
 
         List<Line> lines = new ArrayList();
@@ -89,12 +109,17 @@ public class DetailsActivity extends AppCompatActivity {
 
         lineChartView.setLineChartData(data);
 
+
+
         Axis axis = new Axis();
         axis.setValues(axisValues);
         data.setAxisXBottom(axis);
 
         Axis yAxis = new Axis();
         data.setAxisYLeft(yAxis);
+
+
+
 
     }
 }
