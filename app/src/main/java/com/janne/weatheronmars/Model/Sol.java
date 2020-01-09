@@ -76,6 +76,46 @@ public class Sol implements Serializable, Comparable {
         this.endTime = endTime;
     }
 
+    @Override
+    public boolean equals(Object other) {
+        if(other == null) {
+
+            return false;
+        }
+        if(this.getClass() != other.getClass()) {
+            return false;
+        }
+
+        Sol s = (Sol) other;
+        if(this.number != s.getNumber()) {
+            return false;
+        }
+
+        if(!this.temp.equals(s.getTemp())) {
+            return false;
+        }
+
+        if(!this.wind.equals(s.getWind())) {
+            return false;
+        }
+        if(!this.pressure.equals(s.getPressure())) {
+            return false;
+        }
+        if(!this.season.equals(s.getSeason())) {
+            return false;
+        }
+        if(!this.startTime.equals(s.getStartTime())) {
+            return false;
+        }
+        if(!this.endTime.equals(s.getEndTime())) {
+            return false;
+        }
+
+
+        return true;
+
+    }
+
 
     @Override
     public int compareTo(Object o) {

@@ -11,6 +11,7 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.R;
@@ -89,9 +90,16 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         @Override
         protected void onPostExecute(List<Sol> result) {
 
+            if(sols.equals(result)){
+                Toast.makeText(getApplicationContext(), "The lists are equal", Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getApplicationContext(), "The lists are not equal", Toast.LENGTH_LONG).show();
+            }
+
 
             sols = (ArrayList<Sol>) result;
-            
+
+
             solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
             solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
 
@@ -119,7 +127,6 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
             }
             swipeContainer.setRefreshing(false);
-
         }
     }
 }
