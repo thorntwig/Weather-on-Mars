@@ -67,7 +67,7 @@ public class SolFragment extends Fragment {
 
         date = view.findViewById(R.id.date);
         SimpleDateFormat formatter = new SimpleDateFormat("dd MMM yyyy");
-        String startDate = formatter.format(sol.getStartTime());
+        String startDate = formatter.format(sol.getDate());
         date.setText(startDate);
 
         temp = view.findViewById(R.id.temp);

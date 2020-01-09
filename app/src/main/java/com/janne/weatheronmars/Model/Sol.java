@@ -14,8 +14,7 @@ public class Sol implements Serializable, Comparable {
     private Unit pressure;
 
     private String season;
-    private Date startTime;
-    private Date endTime;
+    private Date date;
 
     private Sol() {
 
@@ -61,20 +60,12 @@ public class Sol implements Serializable, Comparable {
         this.season = season;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public Date getDate() {
+        return date;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
-    }
-
-    public Date getEndTime() {
-        return endTime;
-    }
-
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    public void setDatee(Date date) {
+        this.date = date;
     }
 
     @Override
@@ -105,10 +96,7 @@ public class Sol implements Serializable, Comparable {
         if(!this.season.equals(s.getSeason())) {
             return false;
         }
-        if(!this.startTime.equals(s.getStartTime())) {
-            return false;
-        }
-        if(!this.endTime.equals(s.getEndTime())) {
+        if(!this.date.equals(s.getDate())) {
             return false;
         }
         return true;
@@ -116,7 +104,7 @@ public class Sol implements Serializable, Comparable {
 
     @Override
     public int hashCode() {
-        return Objects.hash(number, temp, wind, pressure, season, startTime, endTime);
+        return Objects.hash(number, temp, wind, pressure, season, date);
     }
 
     @Override
@@ -131,8 +119,7 @@ public class Sol implements Serializable, Comparable {
         private Unit wind;
         private Unit pressure;
         private String season;
-        private Date startTime;
-        private Date endTime;
+        private Date date;
 
         public Builder number(int number) {
             this.number = number;
@@ -159,13 +146,8 @@ public class Sol implements Serializable, Comparable {
             return this;
         }
 
-        public Builder startTime(Date startTime) {
-            this.startTime = startTime;
-            return this;
-        }
-
-        public Builder endTime(Date endTime) {
-            this.endTime = endTime;
+        public Builder date(Date date) {
+            this.date = date;
             return this;
         }
 
@@ -176,8 +158,8 @@ public class Sol implements Serializable, Comparable {
             sol.wind = this.wind;
             sol.pressure = this.pressure;
             sol.season = this.season;
-            sol.startTime = this.startTime;
-            sol.endTime = this.endTime;
+            sol.date = this.date;
+
 
             return sol;
         }
