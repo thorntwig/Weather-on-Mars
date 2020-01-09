@@ -52,6 +52,7 @@ public class SolFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setRetainInstance(true);
         position = getArguments().getInt(SOL_KEY);
         sols = (List<Sol>) getArguments().getSerializable(SOLS_LIST_KEY);

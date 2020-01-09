@@ -34,8 +34,8 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         }
         setContentView(R.layout.activity_main);
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipeContainer);
-
+        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
+
+
 
         FragmentManager fragmentManager = getSupportFragmentManager();
         Fragment solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
