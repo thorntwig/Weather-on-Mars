@@ -1,7 +1,6 @@
 package com.janne.weatheronmars.Controller;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.util.Log;
 import android.net.*;
 
@@ -28,9 +27,9 @@ import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
 
-public class WeatherFetcher {
+public class WeatherRepository {
 
-    public static List<Sol> fetch(Context context) {
+    public static List<Sol> getSol(Context context) {
 
         HttpsURLConnection connection = null;
         BufferedReader reader = null;
@@ -46,7 +45,6 @@ public class WeatherFetcher {
 
             String builtUrl = builder.build().toString();
             URL url = new URL(builtUrl);
-//            URL url = new URL("https://api.nasa.gov/insight_weather/?api_key=pqYoj1vWsXGV8UwlhRbSCeReZEDytTeep3rkghkH&feedtype=json&ver=1.0");
             connection = (HttpsURLConnection) url.openConnection();
             connection.connect();
 

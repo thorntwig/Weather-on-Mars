@@ -6,15 +6,12 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.widget.TextView;
 
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.R;
-import com.janne.weatheronmars.Controller.WeatherFetcher;
+import com.janne.weatheronmars.Controller.WeatherRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,7 +80,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         @Override
         protected List<Sol> doInBackground(Void... voids) {
 
-            return WeatherFetcher.fetch(getApplicationContext());
+            return WeatherRepository.getSol(getApplicationContext());
         }
 
         @Override
