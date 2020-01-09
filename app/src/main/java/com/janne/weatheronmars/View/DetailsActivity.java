@@ -42,7 +42,12 @@ public class DetailsActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
 
-        units = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
+        List<Unit> unsortedUnits = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
+        units = new ArrayList<>();
+        for (int i = unsortedUnits.size() -1; i >= 0; i--) {
+            units.add(unsortedUnits.get(i));
+        }
+
 
         titleTextView = findViewById(R.id.title);
         titleTextView.setText(units.get(0).getTitle() + getString(R.string._in_) + units.get(0).getSign());
