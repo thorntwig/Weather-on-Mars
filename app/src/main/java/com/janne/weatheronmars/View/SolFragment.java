@@ -83,7 +83,6 @@ public class SolFragment extends Fragment {
                             temps.add(s.getTemp());
                         }
                     }
-                    //startDetailsActivity(temps);
                     startActivity(DetailsActivity.createIntent(getActivity(), temps, position));
                 }
             });
