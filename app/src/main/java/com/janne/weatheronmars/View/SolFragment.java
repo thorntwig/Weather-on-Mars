@@ -97,7 +97,9 @@ public class SolFragment extends Fragment {
                 public void onClick(View view) {
                     ArrayList<Unit> winds = new ArrayList<>();
                     for (Sol s : sols) {
-                        winds.add(s.getWind());
+                        if(s.getWind() != null) {
+                            winds.add(s.getWind());
+                        }
                     }
                     startDetailsActivity(winds);
                 }
@@ -113,7 +115,9 @@ public class SolFragment extends Fragment {
                 public void onClick(View view) {
                     ArrayList<Unit> pressures = new ArrayList<>();
                     for (Sol s : sols) {
-                        pressures.add(s.getPressure());
+                        if(s.getPressure() != null) {
+                            pressures.add(s.getPressure());
+                        }
                     }
                     startDetailsActivity(pressures);
                 }
