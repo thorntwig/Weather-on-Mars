@@ -96,9 +96,7 @@ public class DetailsActivity extends AppCompatActivity {
             line.setPointRadius(0);
             emptyLabels(line.getValues());
             setLineNames();
-            line.setPointColor(Color.parseColor("#000000"));
-            line.setShape(ValueShape.CIRCLE);
-
+            line.setPointColor(Color.parseColor("#000000AA"));
         }
     }
     private void emptyLabels(List<PointValue> values) {
