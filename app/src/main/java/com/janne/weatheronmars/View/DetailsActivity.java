@@ -94,6 +94,11 @@ public class DetailsActivity extends AppCompatActivity {
         for(int i = 0; i < values.size(); i ++) {
             if(i != position) {
                 values.get(i).setLabel("");
+            } else {
+
+
+                //String old = String.valueOf(values.get(i).getLabelAsChars());
+                //values.get(i).setLabel(old + units.get(0).getSign());
             }
         }
     }
