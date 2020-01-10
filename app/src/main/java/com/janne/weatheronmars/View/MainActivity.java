@@ -85,6 +85,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
     private class AsyncTaskRunner extends AsyncTask<Void, Void, List<Sol>> {
 
+
         @Override
         protected void onPreExecute() {
             if(!swipeContainer.isRefreshing()) {
