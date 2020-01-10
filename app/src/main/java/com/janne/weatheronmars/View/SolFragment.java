@@ -26,6 +26,7 @@ public class SolFragment extends Fragment {
     private static final String SOLS_LIST_KEY = "sols_list_key";
     private static final String SOL_KEY = "sol_key";
     private static final String UNITS_KEY = "units_key";
+    private static final String UNITS_POSITION = "units_position";
 
     private TextView number, date;
     private Button temp, wind, pressure;
@@ -128,6 +129,7 @@ public class SolFragment extends Fragment {
     private void startDetailsActivity(ArrayList<Unit> units) {
         Intent intent = new Intent(getActivity(), DetailsActivity.class);
         intent.putExtra(UNITS_KEY, units);
+        intent.putExtra(UNITS_POSITION, position);
         startActivity(intent);
     }
 }
