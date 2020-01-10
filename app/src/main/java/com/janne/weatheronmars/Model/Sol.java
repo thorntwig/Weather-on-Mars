@@ -70,33 +70,33 @@ public class Sol implements Serializable, Comparable {
 
     @Override
     public boolean equals(Object other) {
-        if(other == null) {
+        if (other == null) {
 
             return false;
         }
-        if(this.getClass() != other.getClass()) {
+        if (this.getClass() != other.getClass()) {
             return false;
         }
 
         Sol s = (Sol) other;
-        if(this.number != s.getNumber()) {
+        if (this.number != s.getNumber()) {
             return false;
         }
 
-        if(!this.temp.equals(s.getTemp())) {
+        if (!this.temp.equals(s.getTemp())) {
             return false;
         }
 
-        if(!this.wind.equals(s.getWind())) {
+        if (!this.wind.equals(s.getWind())) {
             return false;
         }
-        if(!this.pressure.equals(s.getPressure())) {
+        if (!this.pressure.equals(s.getPressure())) {
             return false;
         }
-        if(!this.season.equals(s.getSeason())) {
+        if (!this.season.equals(s.getSeason())) {
             return false;
         }
-        if(!this.date.equals(s.getDate())) {
+        if (!this.date.equals(s.getDate())) {
             return false;
         }
         return true;

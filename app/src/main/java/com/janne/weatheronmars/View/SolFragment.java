@@ -1,8 +1,6 @@
 package com.janne.weatheronmars.View;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -96,7 +94,7 @@ public class SolFragment extends Fragment {
                 public void onClick(View view) {
                     ArrayList<Unit> winds = new ArrayList<>();
                     for (Sol s : sols) {
-                        if(s.getWind() != null) {
+                        if (s.getWind() != null) {
                             winds.add(s.getWind());
                         }
                     }
@@ -114,7 +112,7 @@ public class SolFragment extends Fragment {
                 public void onClick(View view) {
                     ArrayList<Unit> pressures = new ArrayList<>();
                     for (Sol s : sols) {
-                        if(s.getPressure() != null) {
+                        if (s.getPressure() != null) {
                             pressures.add(s.getPressure());
                         }
                     }
@@ -124,7 +122,7 @@ public class SolFragment extends Fragment {
         }
         title = view.findViewById(R.id.title);
         String season = sol.getSeason();
-        title.setText(getString(R.string.mars_sol) + sol.getNumber() + " " + season.substring(0,1).toUpperCase() + season.substring(1));
+        title.setText(getString(R.string.mars_sol) + sol.getNumber() + " " + season.substring(0, 1).toUpperCase() + season.substring(1));
 
         return view;
     }

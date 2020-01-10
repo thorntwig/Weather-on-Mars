@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -19,11 +18,9 @@ import java.util.List;
 
 import lecho.lib.hellocharts.model.Axis;
 import lecho.lib.hellocharts.model.AxisValue;
-import lecho.lib.hellocharts.model.ChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
-import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.view.LineChartView;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -37,7 +34,7 @@ public class DetailsActivity extends AppCompatActivity {
     private List<AxisValue> axisValues;
     private LineChartData data;
     private List<PointValue> avgValues, minValues, maxValues;
-    private Line avgLine,minLine, maxLine;
+    private Line avgLine, minLine, maxLine;
     private List<Line> lines;
 
     private int position;
@@ -75,7 +72,7 @@ public class DetailsActivity extends AppCompatActivity {
         List<Unit> unsortedUnits = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
         position = intent.getIntExtra(UNITS_POSITION, 0);
         units = new ArrayList<>();
-        for (int i = unsortedUnits.size() -1; i >= 0; i--) {
+        for (int i = unsortedUnits.size() - 1; i >= 0; i--) {
             units.add(unsortedUnits.get(i));
         }
         position = units.size() - position - 1;
@@ -89,20 +86,21 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void setLineLabels() {
 
-        for(Line line : lines) {
+        for (Line line : lines) {
 
             line.setHasLabels(true);
             line.setColor(Color.parseColor("#FFFFFF"));
             line.setPointRadius(0);
             emptyLabels(line.getValues());
             setLineNames();
-            line.setPointColor(Color.parseColor("#000000AA"));
+            line.setPointColor(Color.parseColor("#000000"));
         }
     }
+
     private void emptyLabels(List<PointValue> values) {
 
-        for(int i = 0; i < values.size(); i ++) {
-            if(i != position) {
+        for (int i = 0; i < values.size(); i++) {
+            if (i != position) {
                 values.get(i).setLabel("");
 
             }
@@ -111,8 +109,8 @@ public class DetailsActivity extends AppCompatActivity {
 
     private void setLineNames() {
 
-        if(position == 0) {
-            int max = units.size() -1;
+        if (position == 0) {
+            int max = units.size() - 1;
             minValues.get(max).setLabel(getString(R.string.min));
             avgValues.get(max).setLabel(getString(R.string.avg));
             maxValues.get(max).setLabel(getString(R.string.max));
@@ -158,6 +156,7 @@ public class DetailsActivity extends AppCompatActivity {
         lines.add(avgLine);
         lines.add(minLine);
     }
+
     private void setupAxis() {
 
         data.setLines(lines);
