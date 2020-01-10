@@ -87,19 +87,27 @@ public class WeatherRepository {
                 Date date = format.parse(jsonObj.getString("First_UTC"));
 
                 Unit temp = parseTemp(jsonObj, "AT");
-                temp.setTitle(context.getString(R.string.temp));
-                temp.setSign(context.getString(R.string.temp_sign));
-                temp.setDate(date);
+                if(temp != null){
+                    temp.setTitle(context.getString(R.string.temp));
+                    temp.setSign(context.getString(R.string.temp_sign));
+                    temp.setDate(date);
+                }
+
 
                 Unit pressure = parseUnit(jsonObj, "PRE");
-                pressure.setTitle(context.getString(R.string.pressure));
-                pressure.setSign(context.getString(R.string.pressure_sign));
-                pressure.setDate(date);
+                if(pressure != null) {
+                    pressure.setTitle(context.getString(R.string.pressure));
+                    pressure.setSign(context.getString(R.string.pressure_sign));
+                    pressure.setDate(date);
+                }
+
 
                 Unit wind = parseUnit(jsonObj, "HWS");
-                wind.setTitle(context.getString(R.string.wind));
-                wind.setSign(context.getString(R.string.wind_sign));
-                wind.setDate(date);
+                if(wind != null) {
+                    wind.setTitle(context.getString(R.string.wind));
+                    wind.setSign(context.getString(R.string.wind_sign));
+                    wind.setDate(date);
+                }
 
                 String season = jsonObj.getString("Season");
 
