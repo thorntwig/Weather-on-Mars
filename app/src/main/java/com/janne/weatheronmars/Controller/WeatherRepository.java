@@ -2,7 +2,6 @@ package com.janne.weatheronmars.Controller;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.Model.Unit;
