@@ -50,7 +50,7 @@ public class DetailsActivity extends AppCompatActivity {
             this.getSupportActionBar().hide();
         } catch (NullPointerException e) {
         }
-        setupData();
+        getData();
 
         titleTextView = findViewById(R.id.title);
         titleTextView.setText(units.get(0).getTitle() + getString(R.string._in_) + units.get(0).getSign());
@@ -58,10 +58,9 @@ public class DetailsActivity extends AppCompatActivity {
         lineChartView = findViewById(R.id.chart);
 
         setupLineChart();
-
     }
 
-    private void setupData() {
+    private void getData() {
         Intent intent = getIntent();
         List<Unit> unsortedUnits = (List<Unit>) intent.getSerializableExtra(UNITS_KEY);
         position = intent.getIntExtra(UNITS_POSITION, 0);
@@ -81,25 +80,25 @@ public class DetailsActivity extends AppCompatActivity {
     private void setLineLabels() {
 
         for(Line line : lines) {
-            line.setHasLabels(true);
-            line.setColor(Color.parseColor("#0E79A1"));
 
+            line.setHasLabels(true);
+            line.setColor(Color.parseColor("#FFFFFF"));
+            line.setPointRadius(0);
             emptyLabels(line.getValues());
             setLineNames();
-
+            line.setPointColor(Color.parseColor("#000000"));
         }
     }
     private void emptyLabels(List<PointValue> values) {
+
         for(int i = 0; i < values.size(); i ++) {
             if(i != position) {
                 values.get(i).setLabel("");
             }
-
         }
     }
 
     private void setLineNames() {
-
 
         if(position == 0) {
             int max = units.size() -1;
@@ -123,14 +122,11 @@ public class DetailsActivity extends AppCompatActivity {
 
             String date = formatter.format(units.get(i).getDate());
             axisValues.add(i, new AxisValue(i).setLabel(date));
-
             addPoints(i);
         }
 
         setLineLabels();
-
         setupAxis();
-
         lineChartView.setLineChartData(data);
     }
 
