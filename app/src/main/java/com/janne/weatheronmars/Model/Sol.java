@@ -3,75 +3,21 @@ package com.janne.weatheronmars.Model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
-public class Sol implements Serializable {
+public class Sol implements Serializable, Comparable {
 
     private int number;
 
-    private double minTemp;
-    private double maxTemp;
-    private double averageTemp;
-
-    private double minWind;
-    private double maxWind;
-    private double averageWind;
-
-    private double minPressure;
-    private double maxPressure;
-    private double averagePressure;
+    private Unit temp;
+    private Unit wind;
+    private Unit pressure;
 
     private String season;
+    private Date date;
 
-    private Date startTime;
-    private Date endTime;
+    private Sol() {
 
-
-    public double getMinPressure() {
-        return minPressure;
-    }
-
-    public void setMinPressure(double minPressure) {
-        this.minPressure = minPressure;
-    }
-
-    public double getMaxPressure() {
-        return maxPressure;
-    }
-
-    public void setMaxPressure(double maxPressure) {
-        this.maxPressure = maxPressure;
-    }
-
-    public double getAveragePressure() {
-        return averagePressure;
-    }
-
-    public void setAveragePressure(double averagePressure) {
-        this.averagePressure = averagePressure;
-    }
-
-    public double getMinWind() {
-        return minWind;
-    }
-
-    public void setMinWind(double minWind) {
-        this.minWind = minWind;
-    }
-
-    public double getMaxWind() {
-        return maxWind;
-    }
-
-    public void setMaxWind(double maxWind) {
-        this.maxWind = maxWind;
-    }
-
-    public double getAverageWind() {
-        return averageWind;
-    }
-
-    public void setAverageWind(double averageWind) {
-        this.averageWind = averageWind;
     }
 
     public int getNumber() {
@@ -82,28 +28,28 @@ public class Sol implements Serializable {
         this.number = number;
     }
 
-    public double getMinTemp() {
-        return minTemp;
+    public Unit getTemp() {
+        return temp;
     }
 
-    public void setMinTemp(double minTemp) {
-        this.minTemp = minTemp;
+    public void setTemp(Unit temp) {
+        this.temp = temp;
     }
 
-    public double getMaxTemp() {
-        return maxTemp;
+    public Unit getWind() {
+        return wind;
     }
 
-    public void setMaxTemp(double maxTemp) {
-        this.maxTemp = maxTemp;
+    public void setWind(Unit wind) {
+        this.wind = wind;
     }
 
-    public double getAverageTemp() {
-        return averageTemp;
+    public Unit getPressure() {
+        return pressure;
     }
 
-    public void setAverageTemp(double averageTemp) {
-        this.averageTemp = averageTemp;
+    public void setPressure(Unit pressure) {
+        this.pressure = pressure;
     }
 
     public String getSeason() {
@@ -114,19 +60,109 @@ public class Sol implements Serializable {
         this.season = season;
     }
 
-    public Date getStartTime() {
-        return startTime;
+    public Date getDate() {
+        return date;
     }
 
-    public void setStartTime(Date startTime) {
-        this.startTime = startTime;
+    public void setDatee(Date date) {
+        this.date = date;
     }
 
-    public Date getEndTime() {
-        return endTime;
+    @Override
+    public boolean equals(Object other) {
+        if(other == null) {
+
+            return false;
+        }
+        if(this.getClass() != other.getClass()) {
+            return false;
+        }
+
+        Sol s = (Sol) other;
+        if(this.number != s.getNumber()) {
+            return false;
+        }
+
+        if(!this.temp.equals(s.getTemp())) {
+            return false;
+        }
+
+        if(!this.wind.equals(s.getWind())) {
+            return false;
+        }
+        if(!this.pressure.equals(s.getPressure())) {
+            return false;
+        }
+        if(!this.season.equals(s.getSeason())) {
+            return false;
+        }
+        if(!this.date.equals(s.getDate())) {
+            return false;
+        }
+        return true;
     }
 
-    public void setEndTime(Date endTime) {
-        this.endTime = endTime;
+    @Override
+    public int hashCode() {
+        return Objects.hash(number, temp, wind, pressure, season, date);
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        Sol other = (Sol) o;
+        return other.getNumber() - getNumber();
+    }
+
+    public static class Builder {
+        private int number;
+        private Unit temp;
+        private Unit wind;
+        private Unit pressure;
+        private String season;
+        private Date date;
+
+        public Builder number(int number) {
+            this.number = number;
+            return this;
+        }
+
+        public Builder temp(Unit temp) {
+            this.temp = temp;
+            return this;
+        }
+
+        public Builder wind(Unit wind) {
+            this.wind = wind;
+            return this;
+        }
+
+        public Builder pressure(Unit pressure) {
+            this.pressure = pressure;
+            return this;
+        }
+
+        public Builder season(String season) {
+            this.season = season;
+            return this;
+        }
+
+        public Builder date(Date date) {
+            this.date = date;
+            return this;
+        }
+
+        public Sol build() {
+            Sol sol = new Sol();
+            sol.number = this.number;
+            sol.temp = this.temp;
+            sol.wind = this.wind;
+            sol.pressure = this.pressure;
+            sol.season = this.season;
+            sol.date = this.date;
+
+
+            return sol;
+        }
+
     }
 }
