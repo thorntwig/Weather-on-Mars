@@ -12,6 +12,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
     private ArrayList<Sol> sols;
     private SwipeRefreshLayout swipeContainer;
+    private ProgressBar spinner;
 
     private FragmentManager fragmentManager;
     private Fragment solFragment;
@@ -47,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                swipeContainer.setRefreshing(true);
                 AsyncTaskRunner runner = new AsyncTaskRunner();
                 runner.execute();
             }
@@ -56,6 +60,11 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+
+
+        spinner = (ProgressBar) findViewById(R.id.spinner);
+
+
 
         fragmentManager = getSupportFragmentManager();
         solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
@@ -80,7 +89,9 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
         @Override
         protected void onPreExecute() {
-            // TODO: create progress spinner
+            if(!swipeContainer.isRefreshing()) {
+                spinner.setVisibility(View.VISIBLE);
+            }
         }
 
         @Override
@@ -91,6 +102,9 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
         @Override
         protected void onPostExecute(List<Sol> result) {
+
+
+           spinner.setVisibility(View.GONE);
 
             if(sols != null && sols.equals(result)){
 
@@ -127,6 +141,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
                 }
             }
+
             swipeContainer.setRefreshing(false);
         }
     }
