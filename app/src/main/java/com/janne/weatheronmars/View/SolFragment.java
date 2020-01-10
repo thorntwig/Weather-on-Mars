@@ -83,7 +83,8 @@ public class SolFragment extends Fragment {
                             temps.add(s.getTemp());
                         }
                     }
-                    startDetailsActivity(temps);
+                    //startDetailsActivity(temps);
+                    startActivity(DetailsActivity.createIntent(getActivity(), temps, position));
                 }
             });
         }
@@ -101,7 +102,7 @@ public class SolFragment extends Fragment {
                             winds.add(s.getWind());
                         }
                     }
-                    startDetailsActivity(winds);
+                    startActivity(DetailsActivity.createIntent(getActivity(), winds, position));
                 }
             });
         }
@@ -119,7 +120,7 @@ public class SolFragment extends Fragment {
                             pressures.add(s.getPressure());
                         }
                     }
-                    startDetailsActivity(pressures);
+                    startActivity(DetailsActivity.createIntent(getActivity(), pressures, position));
                 }
             });
         }
@@ -129,10 +130,4 @@ public class SolFragment extends Fragment {
         return view;
     }
 
-    private void startDetailsActivity(ArrayList<Unit> units) {
-        Intent intent = new Intent(getActivity(), DetailsActivity.class);
-        intent.putExtra(UNITS_KEY, units);
-        intent.putExtra(UNITS_POSITION, position);
-        startActivity(intent);
-    }
 }
