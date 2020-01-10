@@ -60,7 +60,6 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
-
         spinner = (ProgressBar) findViewById(R.id.spinner);
 
 

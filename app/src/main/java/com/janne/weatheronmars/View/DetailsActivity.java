@@ -23,6 +23,7 @@ import lecho.lib.hellocharts.model.ChartData;
 import lecho.lib.hellocharts.model.Line;
 import lecho.lib.hellocharts.model.LineChartData;
 import lecho.lib.hellocharts.model.PointValue;
+import lecho.lib.hellocharts.model.ValueShape;
 import lecho.lib.hellocharts.view.LineChartView;
 
 public class DetailsActivity extends AppCompatActivity {
@@ -65,6 +66,8 @@ public class DetailsActivity extends AppCompatActivity {
         lineChartView = findViewById(R.id.chart);
 
         setupLineChart();
+
+
     }
 
     private void getData() {
@@ -94,6 +97,8 @@ public class DetailsActivity extends AppCompatActivity {
             emptyLabels(line.getValues());
             setLineNames();
             line.setPointColor(Color.parseColor("#000000"));
+            line.setShape(ValueShape.CIRCLE);
+
         }
     }
     private void emptyLabels(List<PointValue> values) {
@@ -101,11 +106,7 @@ public class DetailsActivity extends AppCompatActivity {
         for(int i = 0; i < values.size(); i ++) {
             if(i != position) {
                 values.get(i).setLabel("");
-            } else {
 
-
-                //String old = String.valueOf(values.get(i).getLabelAsChars());
-                //values.get(i).setLabel(old + units.get(0).getSign());
             }
         }
     }
@@ -122,6 +123,7 @@ public class DetailsActivity extends AppCompatActivity {
             avgValues.get(0).setLabel(getString(R.string.avg));
             maxValues.get(0).setLabel(getString(R.string.max));
         }
+
     }
 
     private void setupLineChart() {
