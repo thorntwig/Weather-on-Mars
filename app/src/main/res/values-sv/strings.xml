@@ -5,13 +5,13 @@
     <string name="pressure">Lufttryck</string>
     <string name="wind">Vindstyrka</string>
     <string name="temp_sign">°C</string>
-    <string name="pressure_sign">\u0020Pa</string>
-    <string name="wind_sign">\u0020m/s</string>
-    <string name="mars_sol">Sol\u0020</string>
-    <string name="_in_">\u0020i\u0020</string>
+    <string name="pressure_sign">Pa</string>
+    <string name="wind_sign">m/s</string>
+    <string name="mars_sol">Sol</string>
+    <string name="_in_">i</string>
     <string name="up_to_date">Du har redan det senaste vädret</string>
     <string name="min">min</string>
     <string name="avg">snitt</string>
     <string name="max">max</string>
-    <string name="it_is">det är</string>
+
 </resources>

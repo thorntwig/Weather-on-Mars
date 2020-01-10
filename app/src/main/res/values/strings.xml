@@ -4,14 +4,14 @@
     <string name="pressure">Pressure</string>
     <string name="wind">Wind speed</string>
     <string name="temp_sign">°C</string>
-    <string name="pressure_sign">\u0020Pa</string>
-    <string name="wind_sign">\u0020m/s</string>
-    <string name="mars_sol">Sol\u0020</string>
-    <string name="_in_">\u0020in\u0020</string>
+    <string name="pressure_sign">Pa</string>
+    <string name="wind_sign">m/s</string>
+    <string name="mars_sol">Sol</string>
+    <string name="_in_">in</string>
     <string name="up_to_date">You already have the latest weather available</string>
     <string name="min">min</string>
     <string name="avg">avg</string>
     <string name="max">max</string>
-    <string name="it_is">\it is</string>
+
 
 </resources>

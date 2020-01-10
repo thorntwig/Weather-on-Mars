@@ -88,7 +88,7 @@ public class SolFragment extends Fragment {
 
         wind = view.findViewById(R.id.wind);
         if (sol.getWind() != null) {
-            wind.setText((int) Math.round(sol.getWind().getAvg()) + getString(R.string.wind_sign));
+            wind.setText((int) Math.round(sol.getWind().getAvg()) +" " + getString(R.string.wind_sign));
             wind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -106,7 +106,7 @@ public class SolFragment extends Fragment {
 
         pressure = view.findViewById(R.id.pressure);
         if (sol.getPressure() != null) {
-            pressure.setText((int) Math.round(sol.getPressure().getAvg()) + getString(R.string.pressure_sign));
+            pressure.setText((int) Math.round(sol.getPressure().getAvg()) + " " + getString(R.string.pressure_sign));
             pressure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -122,7 +122,7 @@ public class SolFragment extends Fragment {
         }
         title = view.findViewById(R.id.title);
         String season = sol.getSeason();
-        title.setText(getString(R.string.mars_sol) + sol.getNumber() + " " + season.substring(0, 1).toUpperCase() + season.substring(1));
+        title.setText(getString(R.string.mars_sol) + " " +sol.getNumber() + " " + season.substring(0, 1).toUpperCase() + season.substring(1));
 
         return view;
     }

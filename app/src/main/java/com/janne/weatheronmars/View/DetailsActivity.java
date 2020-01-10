@@ -58,7 +58,7 @@ public class DetailsActivity extends AppCompatActivity {
         getData();
 
         titleTextView = findViewById(R.id.title);
-        titleTextView.setText(units.get(0).getTitle() + getString(R.string._in_) + units.get(0).getSign());
+        titleTextView.setText(units.get(0).getTitle() + " " + getString(R.string._in_) + " " + units.get(0).getSign());
 
         lineChartView = findViewById(R.id.chart);
 
