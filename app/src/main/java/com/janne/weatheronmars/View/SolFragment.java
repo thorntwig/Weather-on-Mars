@@ -1,8 +1,6 @@
 package com.janne.weatheronmars.View;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -90,13 +88,13 @@ public class SolFragment extends Fragment {
 
         wind = view.findViewById(R.id.wind);
         if (sol.getWind() != null) {
-            wind.setText((int) Math.round(sol.getWind().getAvg()) + getString(R.string.wind_sign));
+            wind.setText((int) Math.round(sol.getWind().getAvg()) +" " + getString(R.string.wind_sign));
             wind.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ArrayList<Unit> winds = new ArrayList<>();
                     for (Sol s : sols) {
-                        if(s.getWind() != null) {
+                        if (s.getWind() != null) {
                             winds.add(s.getWind());
                         }
                     }
@@ -108,13 +106,13 @@ public class SolFragment extends Fragment {
 
         pressure = view.findViewById(R.id.pressure);
         if (sol.getPressure() != null) {
-            pressure.setText((int) Math.round(sol.getPressure().getAvg()) + getString(R.string.pressure_sign));
+            pressure.setText((int) Math.round(sol.getPressure().getAvg()) + " " + getString(R.string.pressure_sign));
             pressure.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     ArrayList<Unit> pressures = new ArrayList<>();
                     for (Sol s : sols) {
-                        if(s.getPressure() != null) {
+                        if (s.getPressure() != null) {
                             pressures.add(s.getPressure());
                         }
                     }
@@ -124,7 +122,7 @@ public class SolFragment extends Fragment {
         }
         title = view.findViewById(R.id.title);
         String season = sol.getSeason();
-        title.setText(getString(R.string.mars_sol) + sol.getNumber() + " " + season.substring(0,1).toUpperCase() + season.substring(1));
+        title.setText(getString(R.string.mars_sol) + " " +sol.getNumber() + " " + season.substring(0, 1).toUpperCase() + season.substring(1));
 
         return view;
     }

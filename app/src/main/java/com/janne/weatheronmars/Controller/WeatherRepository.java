@@ -1,8 +1,7 @@
 package com.janne.weatheronmars.Controller;
 
 import android.content.Context;
-import android.util.Log;
-import android.net.*;
+import android.net.Uri;
 
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.Model.Unit;
@@ -87,7 +86,7 @@ public class WeatherRepository {
                 Date date = format.parse(jsonObj.getString("First_UTC"));
 
                 Unit temp = parseTemp(jsonObj, "AT");
-                if(temp != null){
+                if (temp != null) {
                     temp.setTitle(context.getString(R.string.temp));
                     temp.setSign(context.getString(R.string.temp_sign));
                     temp.setDate(date);
@@ -95,7 +94,7 @@ public class WeatherRepository {
 
 
                 Unit pressure = parseUnit(jsonObj, "PRE");
-                if(pressure != null) {
+                if (pressure != null) {
                     pressure.setTitle(context.getString(R.string.pressure));
                     pressure.setSign(context.getString(R.string.pressure_sign));
                     pressure.setDate(date);
@@ -103,7 +102,7 @@ public class WeatherRepository {
 
 
                 Unit wind = parseUnit(jsonObj, "HWS");
-                if(wind != null) {
+                if (wind != null) {
                     wind.setTitle(context.getString(R.string.wind));
                     wind.setSign(context.getString(R.string.wind_sign));
                     wind.setDate(date);
@@ -125,7 +124,7 @@ public class WeatherRepository {
 
 
         } catch (JSONException e) {
-            Log.e("JSONException", "Error: " + e.toString());
+            e.printStackTrace();
         } catch (ParseException e) {
             e.printStackTrace();
         }

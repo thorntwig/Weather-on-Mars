@@ -1,7 +1,5 @@
 package com.janne.weatheronmars.Model;
 
-import android.util.Log;
-
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -73,31 +71,31 @@ public class Unit implements Serializable {
     @Override
     public boolean equals(Object other) {
 
-        if(other == null) {
+        if (other == null) {
             return false;
         }
-        if(this.getClass() != other.getClass()) {
+        if (this.getClass() != other.getClass()) {
             return false;
         }
         Unit u = (Unit) other;
 
-        if(this.avg != u.getAvg()){
+        if (this.avg != u.getAvg()) {
             return false;
         }
-        if(this.min != u.getMin()){
+        if (this.min != u.getMin()) {
             return false;
         }
-        if(this.max != u.getMax()){
+        if (this.max != u.getMax()) {
             return false;
         }
 
-        if(!this.sign.equals(u.getSign())) {
+        if (!this.sign.equals(u.getSign())) {
             return false;
         }
-        if(!this.title.equals(u.getTitle())){
+        if (!this.title.equals(u.getTitle())) {
             return false;
         }
-        if(this.date.equals(u.getDate().getTime())){
+        if (this.date.equals(u.getDate().getTime())) {
             return false;
         }
         return true;

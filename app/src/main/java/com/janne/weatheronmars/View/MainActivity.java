@@ -1,24 +1,20 @@
 package com.janne.weatheronmars.View;
 
-import androidx.annotation.NonNull;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ProgressBar;
-import android.widget.TextView;
-import android.widget.Toast;
-
+import com.janne.weatheronmars.Controller.WeatherRepository;
 import com.janne.weatheronmars.Model.Sol;
 import com.janne.weatheronmars.R;
-import com.janne.weatheronmars.Controller.WeatherRepository;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,7 +59,6 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         spinner = (ProgressBar) findViewById(R.id.spinner);
 
 
-
         fragmentManager = getSupportFragmentManager();
         solFragment = fragmentManager.findFragmentById(R.id.fragment_container);
         solListFragment = fragmentManager.findFragmentById(R.id.fragment_list_container);
@@ -88,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
 
         @Override
         protected void onPreExecute() {
-            if(!swipeContainer.isRefreshing()) {
+            if (!swipeContainer.isRefreshing()) {
                 spinner.setVisibility(View.VISIBLE);
             }
         }
@@ -103,9 +98,9 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
         protected void onPostExecute(List<Sol> result) {
 
 
-           spinner.setVisibility(View.GONE);
+            spinner.setVisibility(View.GONE);
 
-            if(sols != null && sols.equals(result)){
+            if (sols != null && sols.equals(result)) {
 
                 Toast.makeText(getApplicationContext(), getString(R.string.up_to_date), Toast.LENGTH_LONG).show();
 
@@ -131,7 +126,7 @@ public class MainActivity extends AppCompatActivity implements SolListFragment.C
                 } else {
 
                     fragmentManager.beginTransaction().remove(solFragment).commit();
-                    solFragment = SolFragment.newInstance(sols,0);
+                    solFragment = SolFragment.newInstance(sols, 0);
                     fragmentManager.beginTransaction().replace(R.id.fragment_container, solFragment).commit();
 
                     fragmentManager.beginTransaction().remove(solListFragment).commit();
