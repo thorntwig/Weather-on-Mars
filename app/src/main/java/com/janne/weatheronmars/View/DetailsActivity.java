@@ -1,5 +1,6 @@
 package com.janne.weatheronmars.View;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -40,6 +41,12 @@ public class DetailsActivity extends AppCompatActivity {
 
     private int position;
 
+    public static Intent createIntent(Context context, ArrayList<Unit> units, int key) {
+        Intent intent = new Intent(context, DetailsActivity.class);
+        intent.putExtra(UNITS_KEY, units);
+        intent.putExtra(UNITS_POSITION, key);
+        return intent;
+    }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

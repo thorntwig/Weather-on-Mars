@@ -28,7 +28,7 @@ public class SolFragment extends Fragment {
     private static final String UNITS_KEY = "units_key";
     private static final String UNITS_POSITION = "units_position";
 
-    private TextView number, date;
+    private TextView title, date;
     private Button temp, wind, pressure;
     private Sol sol;
     private int position;
@@ -123,9 +123,8 @@ public class SolFragment extends Fragment {
                 }
             });
         }
-
-        number = view.findViewById(R.id.number);
-        number.setText(getString(R.string.mars_sol) + sol.getNumber());
+        title = view.findViewById(R.id.title);
+        title.setText(getString(R.string.mars_sol) + sol.getNumber() + " " + getString(R.string.it_is) + " " + sol.getSeason());
 
         return view;
     }
