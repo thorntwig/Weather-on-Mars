@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Mars väder</string>
-    <string name="temp">Tempratur</string>
+    <string name="temp">Temperatur</string>
     <string name="pressure">Lufttryck</string>
     <string name="wind">Vindstyrka</string>
     <string name="temp_sign">°C</string>
