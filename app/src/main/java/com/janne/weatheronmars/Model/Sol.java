@@ -81,17 +81,30 @@ public class Sol implements Serializable, Comparable {
         if (this.number != s.getNumber()) {
             return false;
         }
-
-        if (!this.temp.equals(s.getTemp())) {
+        if (this.temp == null) {
+            if (s.getTemp() != null) {
+                return false;
+            }
+        } else if (!this.temp.equals(s.getTemp())) {
             return false;
         }
 
-        if (!this.wind.equals(s.getWind())) {
+
+        if (this.wind == null) {
+            if (s.getWind() != null) {
+                return false;
+                }
+        } else if (!this.wind.equals(s.getWind())) {
             return false;
         }
-        if (!this.pressure.equals(s.getPressure())) {
+
+        if (this.pressure == null) {
+            if (s.getPressure() != null) {
+            }
+        } else if (!this.pressure.equals(s.getPressure())) {
             return false;
         }
+
         if (!this.season.equals(s.getSeason())) {
             return false;
         }
